@@ -1,8 +1,10 @@
 package gdkerr
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"io"
 	"regexp"
 	"strconv"
 	"strings"
@@ -34,8 +36,8 @@ func TestFormatting(t *testing.T) {
 			"%+v",
 			[]string{
 				`^message \(code=NotFound\):$`,
-				`\s+github.com/sraphs/gdk/internal/gdkerr.TestFormatting$`,
-				`\s+.*/internal/gdkerr/gdkerr_test.go:\d+$`,
+				`\s+github.com/sraphs/gdk/gdkerr.TestFormatting$`,
+				`\s+.*/gdkerr/gdkerr_test.go:\d+$`,
 			},
 		},
 		{
@@ -48,8 +50,8 @@ func TestFormatting(t *testing.T) {
 			"%+v",
 			[]string{
 				`^message \(code=AlreadyExists\):`,
-				`^\s+github.com/sraphs/gdk/internal/gdkerr.TestFormatting$`,
-				`^\s+.*/internal/gdkerr/gdkerr_test.go:\d+$`,
+				`^\s+github.com/sraphs/gdk/gdkerr.TestFormatting$`,
+				`^\s+.*/gdkerr/gdkerr_test.go:\d+$`,
 				`^\s+- wrapped$`,
 			},
 		},
@@ -63,8 +65,8 @@ func TestFormatting(t *testing.T) {
 			"%+v",
 			[]string{
 				`^code=AlreadyExists:`,
-				`^\s+github.com/sraphs/gdk/internal/gdkerr.TestFormatting$`,
-				`^\s+.*/internal/gdkerr/gdkerr_test.go:\d+$`,
+				`^\s+github.com/sraphs/gdk/gdkerr.TestFormatting$`,
+				`^\s+.*/gdkerr/gdkerr_test.go:\d+$`,
 				`^\s+- wrapped$`,
 			},
 		},
@@ -99,6 +101,35 @@ func TestError(t *testing.T) {
 		want := fmt.Sprint(err)
 		if got != want {
 			t.Errorf("%v: got %q, want %q", err, got, want)
+		}
+	}
+}
+
+type wrappedErr struct {
+	err error
+}
+
+func (w wrappedErr) Error() string { return "wrapped" }
+
+func (w wrappedErr) Unwrap() error { return w.err }
+
+func TestCode(t *testing.T) {
+	for _, test := range []struct {
+		in   error
+		want ErrorCode
+	}{
+		{nil, OK},
+		{New(AlreadyExists, nil, 1, ""), AlreadyExists},
+		{wrappedErr{New(PermissionDenied, nil, 1, "")}, PermissionDenied},
+		{context.Canceled, Canceled},
+		{context.DeadlineExceeded, DeadlineExceeded},
+		{wrappedErr{context.Canceled}, Canceled},
+		{wrappedErr{context.DeadlineExceeded}, DeadlineExceeded},
+		{io.EOF, Unknown},
+	} {
+		got := Code(test.in)
+		if got != test.want {
+			t.Errorf("%v: got %s, want %s", test.in, got, test.want)
 		}
 	}
 }

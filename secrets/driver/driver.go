@@ -6,7 +6,7 @@ package driver
 import (
 	"context"
 
-	"github.com/sraphs/gdk/internal/gdkerr"
+	"github.com/sraphs/gdk/gdkerr"
 )
 
 // Keeper holds the key information to encrypt a plain text message into a
@@ -29,7 +29,7 @@ type Keeper interface {
 	// ErrorAs allows drivers to expose driver-specific types for returned
 	// errors.
 	//
-	// See https://gocloud.dev/concepts/as/ for background information.
+	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
 	ErrorAs(err error, i interface{}) bool
 
 	// ErrorCode should return a code that describes the error, which was returned

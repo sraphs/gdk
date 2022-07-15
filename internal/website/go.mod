@@ -1,4 +1,4 @@
-module gocloud.dev/internal/website
+module github.com/sraphs/gdk/internal/website
 
 go 1.12
 

@@ -11,8 +11,8 @@ import (
 )
 
 func ExampleOpenKeeper() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
-	// PRAGMA: On gocloud.dev, hide lines until the next blank line.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: On github.com/sraphs/gdk, hide lines until the next blank line.
 	ctx := context.Background()
 
 	// Get a client to use with the Vault API.
@@ -32,9 +32,9 @@ func ExampleOpenKeeper() {
 }
 
 func Example_openFromURL() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
-	// PRAGMA: On gocloud.dev, add a blank import: _ "gocloud.dev/secrets/hashivault"
-	// PRAGMA: On gocloud.dev, hide lines until the next blank line.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: On github.com/sraphs/gdk, add a blank import: _ "github.com/sraphs/gdk/secrets/hashivault"
+	// PRAGMA: On github.com/sraphs/gdk, hide lines until the next blank line.
 	ctx := context.Background()
 
 	keeper, err := secrets.OpenKeeper(ctx, "hashivault://mykey")

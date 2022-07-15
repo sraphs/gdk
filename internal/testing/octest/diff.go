@@ -7,7 +7,7 @@ import (
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/trace"
 
-	"github.com/sraphs/gdk/internal/gdkerr"
+	"github.com/sraphs/gdk/gdkerr"
 )
 
 // Call holds the expected contents of a measured call.

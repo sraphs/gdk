@@ -30,9 +30,9 @@ for pkg in $(internal/website/listnewpkgs.sh); do
   # Only consider directories that contain Go source files.
   outfile="$OUTDIR/$pkg/_index.md"
   mkdir -p "$OUTDIR/$pkg"
-  echo "Generating gocloud.dev/$pkg"
+  echo "Generating github.com/sraphs/gdk/$pkg"
   echo "---" >> "$outfile"
-  echo "title: gocloud.dev/$pkg" >> "$outfile"
+  echo "title: github.com/sraphs/gdk/$pkg" >> "$outfile"
   echo "type: pkg" >> "$outfile"
   echo "---" >> "$outfile"
 done

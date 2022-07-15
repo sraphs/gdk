@@ -7,7 +7,7 @@
 # deploy:
 #   provider: pages
 #   edge: true
-#   fqdn: gocloud.dev
+#   fqdn: github.com/sraphs/gdk
 #   skip-cleanup: true
 #   local-dir: internal/website/public
 

@@ -1,22 +1,8 @@
-// Copyright 2019 The Go Cloud Development Kit Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 // Command gatherexamples extracts examples in a Go module into a JSON-formatted
 // object. This is used as input for building the Go CDK Hugo website.
 //
 // Examples must include a comment
-// "// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored."
+// "// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored."
 // somewhere in the function body in order to be included in this tool's output.
 //
 // gatherexamples does some minimal rewriting of the example source code for
@@ -24,13 +10,13 @@
 //
 //   - Any imports the example uses will be prepended to the code.
 //   - log.Fatal(err) -> return err
-//   - A comment line "// PRAGMA: On gocloud.dev, hide lines until the next blank line." will
+//   - A comment line "// PRAGMA: On github.com/sraphs/gdk, hide lines until the next blank line." will
 //     remove any code up to the next blank line. This is intended for
 //     compiler-mandated setup like `ctx := context.Background()`.
-//   - A comment line "// PRAGMA: On gocloud.dev, hide the rest of the function." will
+//   - A comment line "// PRAGMA: On github.com/sraphs/gdk, hide the rest of the function." will
 //     remove any code until the end of the function. This is intended for
 //     compiler-mandated assignments like `_ = bucket`.
-//   - A comment line "// PRAGMA: On gocloud.dev, add a blank import: _ "example.com/foo""
+//   - A comment line "// PRAGMA: On github.com/sraphs/gdk, add a blank import: _ "example.com/foo""
 //     will add the blank import to the example's imports.
 //
 // The key of each JSON object entry will be the import path of the package,
@@ -125,7 +111,7 @@ const pragmaPrefix = "// PRAGMA: "
 
 // inclusionComment is the comment used to signify whether the example should be
 // included in the output.
-const inclusionComment = pragmaPrefix + "This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored."
+const inclusionComment = pragmaPrefix + "This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored."
 
 type example struct {
 	Imports string `json:"imports"`
@@ -229,10 +215,10 @@ rewrite:
 			sb.WriteByte('\n')
 			continue
 		}
-		const importBlankPrefix = pragmaPrefix + "On gocloud.dev, add a blank import: _ "
+		const importBlankPrefix = pragmaPrefix + "On github.com/sraphs/gdk, add a blank import: _ "
 		indent, lineContent := line[:start], line[start:]
 		switch {
-		case lineContent == pragmaPrefix+"On gocloud.dev, hide lines until the next blank line.":
+		case lineContent == pragmaPrefix+"On github.com/sraphs/gdk, hide lines until the next blank line.":
 			// Skip lines until we hit a blank line.
 			for len(block) > 0 {
 				var next string
@@ -241,7 +227,7 @@ rewrite:
 					break
 				}
 			}
-		case lineContent == pragmaPrefix+"On gocloud.dev, hide the rest of the function.":
+		case lineContent == pragmaPrefix+"On github.com/sraphs/gdk, hide the rest of the function.":
 			// Ignore remaining lines.
 			break rewrite
 		case lineContent == "log.Fatal(err)":

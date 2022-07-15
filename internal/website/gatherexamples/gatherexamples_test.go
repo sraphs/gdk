@@ -1,17 +1,3 @@
-// Copyright 2019 The Go Cloud Development Kit Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package main
 
 import (
@@ -92,7 +78,7 @@ func ExampleFoo() {
 					"example_test.go": `package foo_test
 
 func Example() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
 }`,
 				},
 			},
@@ -109,7 +95,7 @@ func Example() {
 					"example_test.go": `package foo_test
 
 func ExampleFoo() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
 }`,
 				},
 			},
@@ -126,7 +112,7 @@ func ExampleFoo() {
 					"example_test.go": `package foo_test
 
 func Example() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
 
 	// Unattached comment.
 
@@ -158,7 +144,7 @@ func Example() {
 import "fmt"
 
 func Example() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
 	fmt.Println(42)
 }`,
 				},
@@ -182,7 +168,7 @@ import "fmt"
 import "math"
 
 func Example() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
 	fmt.Println(math.Pi)
 }`,
 				},
@@ -205,7 +191,7 @@ func Example() {
 import "log"
 
 func Example() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
 	var err error
 	if err != nil {
 		log.Fatal(err)
@@ -229,14 +215,14 @@ func Example() {
 import "context"
 
 func Example() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
 
-	// PRAGMA: On gocloud.dev, hide lines until the next blank line.
+	// PRAGMA: On github.com/sraphs/gdk, hide lines until the next blank line.
 	ctx := context.Background()
 
 	// do something
 
-	// PRAGMA: On gocloud.dev, hide the rest of the function.
+	// PRAGMA: On github.com/sraphs/gdk, hide the rest of the function.
 	_ = ctx
 }`,
 				},
@@ -257,9 +243,9 @@ func Example() {
 					"example_test.go": `package foo_test
 
 func Example() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
 
-	// PRAGMA: On gocloud.dev, add a blank import: _ "example.com/bar"
+	// PRAGMA: On github.com/sraphs/gdk, add a blank import: _ "example.com/bar"
 	_ = 42
 }`,
 				},
@@ -332,7 +318,7 @@ func TestFormatImports(t *testing.T) {
 				"fmt":                          "",
 				"log":                          "",
 				"github.com/google/go-cmp/cmp": "",
-				"gocloud.dev/blob":             "",
+				"github.com/sraphs/gdk/blob":   "",
 			},
 			want: "import (\n" +
 				"\t\"context\"\n" +
@@ -340,7 +326,7 @@ func TestFormatImports(t *testing.T) {
 				"\t\"log\"\n" +
 				"\n" +
 				"\t\"github.com/google/go-cmp/cmp\"\n" +
-				"\t\"gocloud.dev/blob\"\n" +
+				"\t\"github.com/sraphs/gdk/blob\"\n" +
 				")",
 		},
 	}

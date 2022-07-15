@@ -9,7 +9,7 @@
 // "VAULT_SERVER_URL" (or "VAULT_ADDR") and "VAULT_SERVER_TOKEN" (or "VAULT_TOKEN").
 // To customize the URL opener, or for more details on the URL format,
 // see URLOpener.
-// See https://gocloud.dev/concepts/urls/ for background information.
+// See https://github.com/sraphs/gdk/concepts/urls/ for background information.
 //
 // # As
 //
@@ -28,7 +28,7 @@ import (
 
 	"github.com/hashicorp/vault/api"
 
-	"github.com/sraphs/gdk/internal/gdkerr"
+	"github.com/sraphs/gdk/gdkerr"
 	"github.com/sraphs/gdk/secrets"
 )
 

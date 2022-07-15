@@ -174,7 +174,7 @@ func GRPCCode(err error) ErrorCode {
 
 // ErrorAs is a helper for the ErrorAs method of an API's portable type.
 // It performs some initial nil checks, and does a single level of unwrapping
-// when err is a *gcerr.Error. Then it calls its errorAs argument, which should
+// when err is a *gdkerr.Error. Then it calls its errorAs argument, which should
 // be a driver implementation of ErrorAs.
 func ErrorAs(err error, target interface{}, errorAs func(error, interface{}) bool) bool {
 	if err == nil {
@@ -191,4 +191,26 @@ func ErrorAs(err error, target interface{}, errorAs func(error, interface{}) boo
 		err = e.Unwrap()
 	}
 	return errorAs(err, target)
+}
+
+// Code returns the ErrorCode of err if it, or some error it wraps, is an *Error.
+// If err is context.Canceled or context.DeadlineExceeded, or wraps one of those errors,
+// it returns the Canceled or DeadlineExceeded codes, respectively.
+// If err is nil, it returns the special code OK.
+// Otherwise, it returns Unknown.
+func Code(err error) ErrorCode {
+	if err == nil {
+		return OK
+	}
+	var e *Error
+	if xerrors.As(err, &e) {
+		return e.Code
+	}
+	if xerrors.Is(err, context.Canceled) {
+		return Canceled
+	}
+	if xerrors.Is(err, context.DeadlineExceeded) {
+		return DeadlineExceeded
+	}
+	return Unknown
 }

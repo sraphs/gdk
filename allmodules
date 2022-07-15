@@ -12,4 +12,9 @@
 
 # module-directory           released
 .                            yes
+internal/website             no
+pubsub/kafkapubsub           yes
+pubsub/natspubsub            yes
+pubsub/rabbitpubsub          yes
+runtimevar/etcdvar           yes
 secrets/hashivault           yes

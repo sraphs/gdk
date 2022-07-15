@@ -9,7 +9,8 @@ import (
 	"go.opencensus.io/stats"
 	"go.opencensus.io/tag"
 	"go.opencensus.io/trace"
-	"gocloud.dev/gcerrors"
+
+	"github.com/sraphs/gdk/gdkerr"
 )
 
 // A Tracer supports OpenCensus tracing and latency metrics.
@@ -56,7 +57,7 @@ func (t *Tracer) Start(ctx context.Context, methodName string) context.Context {
 func (t *Tracer) End(ctx context.Context, err error) {
 	startTime := ctx.Value(startTimeKey{}).(time.Time)
 	elapsed := time.Since(startTime)
-	code := gcerrors.Code(err)
+	code := gdkerr.Code(err)
 	span := trace.FromContext(ctx)
 	if err != nil {
 		span.SetStatus(trace.Status{Code: int32(code), Message: err.Error()})

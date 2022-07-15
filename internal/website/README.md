@@ -1,8 +1,8 @@
-# gocloud.dev source
+# github.com/sraphs/gdk source
 
-Source for the [gocloud.dev website][]. Powered by [Hugo][].
+Source for the [github.com/sraphs/gdk website][]. Powered by [Hugo][].
 
-[gocloud.dev website]: https://gocloud.dev/
+[github.com/sraphs/gdk website]: https://github.com/sraphs/gdk/
 [Hugo]: https://gohugo.io/
 
 ## Local Development

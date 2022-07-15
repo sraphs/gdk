@@ -10,7 +10,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 
-	"github.com/sraphs/gdk/internal/gdkerr"
+	"github.com/sraphs/gdk/gdkerr"
 	"github.com/sraphs/gdk/internal/testing/octest"
 	"github.com/sraphs/gdk/secrets/driver"
 )

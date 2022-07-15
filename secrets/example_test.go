@@ -46,7 +46,7 @@ func Example_errorAs() {
 	// demonstrates access to the underlying google.golang.org/grpc/status.Status
 	// type.
 	// The types exposed for As by gcpkms are documented in
-	// https://godoc.org/gocloud.dev/secrets/gcpkms#hdr-As
+	// https://godoc.org/github.com/sraphs/gdk/secrets/gcpkms#hdr-As
 	ctx := context.Background()
 
 	const url = "gcpkms://projects/proj/locations/global/keyRings/test/ring/wrongkey"
@@ -67,8 +67,8 @@ func Example_errorAs() {
 }
 
 func ExampleKeeper_Encrypt() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
-	// PRAGMA: On gocloud.dev, hide lines until the next blank line.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: On github.com/sraphs/gdk, hide lines until the next blank line.
 	ctx := context.Background()
 	var keeper *secrets.Keeper
 
@@ -78,13 +78,13 @@ func ExampleKeeper_Encrypt() {
 		log.Fatal(err)
 	}
 
-	// PRAGMA: On gocloud.dev, hide the rest of the function.
+	// PRAGMA: On github.com/sraphs/gdk, hide the rest of the function.
 	_ = cipherText
 }
 
 func ExampleKeeper_Decrypt() {
-	// PRAGMA: This example is used on gocloud.dev; PRAGMA comments adjust how it is shown and can be ignored.
-	// PRAGMA: On gocloud.dev, hide lines until the next blank line.
+	// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored.
+	// PRAGMA: On github.com/sraphs/gdk, hide lines until the next blank line.
 	ctx := context.Background()
 	var keeper *secrets.Keeper
 
@@ -94,6 +94,6 @@ func ExampleKeeper_Decrypt() {
 		log.Fatal(err)
 	}
 
-	// PRAGMA: On gocloud.dev, hide the rest of the function.
+	// PRAGMA: On github.com/sraphs/gdk, hide the rest of the function.
 	_ = plainText
 }

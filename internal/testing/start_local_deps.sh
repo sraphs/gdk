@@ -8,10 +8,9 @@
 # https://coderwall.com/p/fkfaqq/safer-bash-scripts-with-set-euxo-pipefail
 set -euo pipefail
 
-# ./pubsub/kafkapubsub/localkafka.sh
-# ./pubsub/rabbitpubsub/localrabbit.sh
-# ./runtimevar/etcdvar/localetcd.sh
-# ./docstore/mongodocstore/localmongo.sh
+./pubsub/kafkapubsub/localkafka.sh
+./pubsub/rabbitpubsub/localrabbit.sh
+./runtimevar/etcdvar/localetcd.sh
 ./secrets/hashivault/localvault.sh
 
 sleep 10
