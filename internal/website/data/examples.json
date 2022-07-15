@@ -1,0 +1,26 @@
+{
+	"github.com/sraphs/gdk/secrets.ExampleKeeper_Decrypt": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/secrets\"\n)",
+		"code": "var cipherText []byte // obtained from elsewhere and random-looking\nplainText, err := keeper.Decrypt(ctx, cipherText)\nif err != nil {\n\treturn err\n}"
+	},
+	"github.com/sraphs/gdk/secrets.ExampleKeeper_Encrypt": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/secrets\"\n)",
+		"code": "plainText := []byte(\"Secrets secrets...\")\ncipherText, err := keeper.Encrypt(ctx, plainText)\nif err != nil {\n\treturn err\n}"
+	},
+	"github.com/sraphs/gdk/secrets/hashivault.ExampleOpenKeeper": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/hashicorp/vault/api\"\n\t\"github.com/sraphs/gdk/secrets/hashivault\"\n)",
+		"code": "// Get a client to use with the Vault API.\nclient, err := hashivault.Dial(ctx, \u0026hashivault.Config{\n\tToken: \"CLIENT_TOKEN\",\n\tAPIConfig: api.Config{\n\t\tAddress: \"http://127.0.0.1:8200\",\n\t},\n})\nif err != nil {\n\treturn err\n}\n\n// Construct a *secrets.Keeper.\nkeeper := hashivault.OpenKeeper(client, \"my-key\", nil)\ndefer keeper.Close()"
+	},
+	"github.com/sraphs/gdk/secrets/hashivault.Example_openFromURL": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/secrets\"\n\t_ \"gocloud.dev/secrets/hashivault\"\n)",
+		"code": "keeper, err := secrets.OpenKeeper(ctx, \"hashivault://mykey\")\nif err != nil {\n\treturn err\n}\ndefer keeper.Close()"
+	},
+	"github.com/sraphs/gdk/secrets/localsecrets.ExampleNewKeeper": {
+		"imports": "import \"github.com/sraphs/gdk/secrets/localsecrets\"",
+		"code": "secretKey, err := localsecrets.NewRandomKey()\nif err != nil {\n\treturn err\n}\nkeeper := localsecrets.NewKeeper(secretKey)\ndefer keeper.Close()"
+	},
+	"github.com/sraphs/gdk/secrets/localsecrets.Example_openFromURL": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/secrets\"\n\t_ \"gocloud.dev/secrets/localsecrets\"\n)",
+		"code": "// Using \"base64key://\", a new random key will be generated.\nrandomKeyKeeper, err := secrets.OpenKeeper(ctx, \"base64key://\")\nif err != nil {\n\treturn err\n}\ndefer randomKeyKeeper.Close()\n\n// Otherwise, the URL hostname must be a base64-encoded key, of length 32 bytes when decoded.\n// Note that base64.URLEncode should be used, to avoid URL-unsafe characters.\nsavedKeyKeeper, err := secrets.OpenKeeper(ctx, \"base64key://smGbjm71Nxd1Ig5FS0wj9SlbzAIrnolCz9bQQ6uAhl4=\")\nif err != nil {\n\treturn err\n}\ndefer savedKeyKeeper.Close()"
+	}
+}
