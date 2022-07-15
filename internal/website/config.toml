@@ -14,11 +14,11 @@ taxonomyTerm = ["HTML", "RSS"]
 [[menu.footer]]
 identifier = "github"
 name = "GitHub"
-url = "https://github.com/google/go-cloud/"
+url = "https://github.com/sraphs/gdk/"
 weight = 1
 
 [[menu.footer]]
 identifier = "private-contact"
 name = "Contact Team"
-url = "https://github.com/google/go-cloud/issues"
+url = "https://github.com/sraphs/gdk/issues"
 weight = 3

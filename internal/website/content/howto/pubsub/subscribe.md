@@ -92,110 +92,11 @@ Note that the [semantics of message delivery][] can vary by backing service.
 
 ## Other Usage Samples
 
-* [CLI Sample](https://github.com/google/go-cloud/tree/master/samples/gocdk-pubsub)
+* [CLI Sample](https://github.com/sraphs/gdk/tree/master/samples/gocdk-pubsub)
 * [Order Processor sample](https://github.com/sraphs/gdk/tutorials/order/)
 * [pubsub package examples](https://godoc.org/github.com/sraphs/gdk/pubsub#pkg-examples)
 
 ## Supported Pub/Sub Services {#services}
-
-### Google Cloud Pub/Sub {#gcp}
-
-The Go CDK can receive messages from a Google [Cloud Pub/Sub][] subscription.
-The URLs use the project ID and the subscription ID.
-
-[Cloud Pub/Sub]: https://cloud.google.com/pubsub/docs/
-
-`pubsub.OpenSubscription` will use Application Default Credentials; if you have
-authenticated via [`gcloud auth application-default login`][], it will use those credentials. See
-[Application Default Credentials][GCP creds] to learn about authentication
-alternatives, including using environment variables.
-
-[GCP creds]: https://cloud.google.com/docs/authentication/production
-[`gcloud auth application-default login`]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
-
-{{< goexample "github.com/sraphs/gdk/pubsub/gcppubsub.Example_openSubscriptionFromURL" >}}
-
-#### Google Cloud Pub/Sub Constructor {#gcp-ctor}
-
-The [`gcppubsub.OpenSubscription`][] constructor opens a Cloud Pub/Sub
-subscription. You must first obtain [GCP credentials][GCP creds] and then
-create a gRPC connection to Cloud Pub/Sub. (This gRPC connection can be
-reused among subscriptions.)
-
-{{< goexample "github.com/sraphs/gdk/pubsub/gcppubsub.ExampleOpenSubscription" >}}
-
-[`gcppubsub.OpenSubscription`]: https://godoc.org/github.com/sraphs/gdk/pubsub/gcppubsub#OpenSubscription
-
-### Amazon Simple Queueing Service {#sqs}
-
-The Go CDK can subscribe to an Amazon [Simple Queueing Service][SQS] (SQS)
-topic. SQS URLs closely resemble the the queue URL, except the leading
-`https://` is replaced with `awssqs://`. You should specify the `region`
-query parameter to ensure your application connects to the correct region.
-
-[SQS]: https://aws.amazon.com/sqs/
-
-`pubsub.OpenSubscription` will create a default AWS Session with the
-`SharedConfigEnable` option enabled; if you have authenticated with the AWS CLI,
-it will use those credentials. See [AWS Session][] to learn about authentication
-alternatives, including using environment variables.
-
-[AWS Session]: https://docs.aws.amazon.com/sdk-for-go/api/aws/session/
-
-{{< goexample "github.com/sraphs/gdk/pubsub/awssnssqs.Example_openSubscriptionFromURL" >}}
-
-If your messages are being sent to SQS directly, or if they are being delivered
-via an SNS topic with `RawMessageDelivery` enabled, set a `raw=true` query
-parameter in your URL, or set `SubscriberOptions.Raw` to `true` if you're using
-the constructors. By default, the subscription will use heuristics to identify
-whether the message bodies are raw or [SNS JSON][].
-
-Messages with a `base64encoded` message attribute will be automatically
-[Base64][] decoded before being returned. See the [SNS publishing guide][]
-or the [SQS publishing guide][] for more details.
-
-[Base64]: https://en.wikipedia.org/wiki/Base64
-[SNS publishing guide]: {{< ref "./publish.md#sns" >}}
-[SQS publishing guide]: {{< ref "./publish.md#sqs" >}}
-[SNS JSON]: https://aws.amazon.com/sns/faqs/#Raw_message_delivery
-
-#### Amazon SQS Constructor {#sqs-ctor}
-
-The [`awssnssqs.OpenSubscription`][] constructor opens an SQS queue. You must
-first create an [AWS session][] with the same region as your topic:
-
-{{< goexample "github.com/sraphs/gdk/pubsub/awssnssqs.ExampleOpenSubscription" >}}
-
-[`awssnssqs.OpenSubscription`]: https://godoc.org/github.com/sraphs/gdk/pubsub/awssnssqs#OpenSubscription
-[AWS session]: https://docs.aws.amazon.com/sdk-for-go/api/aws/session/
-
-### Azure Service Bus {#azure}
-
-The Go CDK can recieve messages from an [Azure Service Bus][] subscription
-over [AMQP 1.0][]. The URL for subscribing is the topic name with the
-subscription name in the `subscription` query parameter.
-`pubsub.OpenSubscription` will use the environment variable
-`SERVICEBUS_CONNECTION_STRING` to obtain the Service Bus Connection String
-you need to copy [from the Azure portal][Azure connection string].
-
-{{< goexample "github.com/sraphs/gdk/pubsub/azuresb.Example_openSubscriptionFromURL" >}}
-
-[AMQP 1.0]: https://www.amqp.org/
-[Azure connection string]: https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dotnet-how-to-use-topics-subscriptions#get-the-connection-string
-[Azure Service Bus]: https://azure.microsoft.com/en-us/services/service-bus/
-
-#### Azure Service Bus Constructor {#azure-ctor}
-
-The [`azuresb.OpenSubscription`][] constructor opens an Azure Service Bus
-subscription. You must first connect to the topic and subscription using the
-[Azure Service Bus library][] and then pass the subscription to
-`azuresb.OpenSubscription`. There are also helper functions in the `azuresb`
-package to make this easier.
-
-{{< goexample "github.com/sraphs/gdk/pubsub/azuresb.ExampleOpenSubscription" >}}
-
-[`azuresb.OpenSubscription`]: https://godoc.org/github.com/sraphs/gdk/pubsub/azuresb#OpenSubscription
-[Azure Service Bus library]: https://github.com/Azure/azure-service-bus-go
 
 ### RabbitMQ {#rabbitmq}
 

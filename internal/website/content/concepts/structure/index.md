@@ -23,7 +23,7 @@ CDK makes possible.
 
 (More details available in the [Go CDK design doc][Developers and Operators].)
 
-[Developers and Operators]: https://github.com/google/go-cloud/blob/master/internal/docs/design.md#developers-and-operators
+[Developers and Operators]: https://github.com/sraphs/gdk/blob/master/internal/docs/design.md#developers-and-operators
 [separation of concerns]: https://en.wikipedia.org/wiki/Separation_of_concerns
 [uploader tutorial]: {{< ref "/tutorials/cli-uploader.md" >}}
 
@@ -63,12 +63,12 @@ This has a number of benefits:
 
 (More details available in the [Go CDK design doc][Portable Types and Drivers].)
 
-[Portable Types and Drivers]: https://github.com/google/go-cloud/blob/master/internal/docs/design.md#portable-types-and-drivers
-[`blob.Bucket`]: https://godoc.org/github.com/google/go-cloud/blob#Bucket
+[Portable Types and Drivers]: https://github.com/sraphs/gdk/blob/master/internal/docs/design.md#portable-types-and-drivers
+[`blob.Bucket`]: https://godoc.org/github.com/sraphs/gdk/blob#Bucket
 [`runtimevar.Variable`]:
-https://godoc.org/github.com/google/go-cloud/runtimevar#Variable
+https://godoc.org/github.com/sraphs/gdk/runtimevar#Variable
 [`Bucket.NewWriter` method]:
-https://godoc.org/github.com/google/go-cloud/blob#Bucket.NewWriter
+https://godoc.org/github.com/sraphs/gdk/blob#Bucket.NewWriter
 [`database/sql`]: https://godoc.org/database/sql
 
 ## Best Practices

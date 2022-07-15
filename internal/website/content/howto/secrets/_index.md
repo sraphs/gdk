@@ -152,7 +152,7 @@ runtime configuration.
 
 ## Other Usage Samples
 
-* [CLI Sample](https://github.com/google/go-cloud/tree/master/samples/gocdk-secrets)
+* [CLI Sample](https://github.com/sraphs/gdk/tree/master/samples/gocdk-secrets)
 * [Secrets package examples](https://godoc.org/github.com/sraphs/gdk/secrets#example-package)
 
 ## Supported Services {#services}

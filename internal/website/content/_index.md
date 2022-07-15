@@ -23,7 +23,7 @@ For more background about the project, check out the
 
 If you're interested in contributing to the Go CDK or are interested in checking
 out the code, head to [our GitHub project
-page](https://github.com/google/go-cloud).
+page](https://github.com/sraphs/gdk).
 
 ## Installing and getting started
 
@@ -52,12 +52,12 @@ with only minimal setup-time changes.
 
 We're looking for early adopters to help us validate the APIs before releasing
 a beta version. Please try it and provide feedback by filing a
-[GitHub issue](https://github.com/google/go-cloud/issues).
+[GitHub issue](https://github.com/sraphs/gdk/issues).
 
 ## Legal disclaimer
 
 The Go CDK is open-source and released under an [Apache 2.0
-License](https://github.com/google/go-cloud/blob/master/LICENSE). Copyright ©
+License](https://github.com/sraphs/gdk/blob/master/LICENSE). Copyright ©
 2018–2019 The Go Cloud Development Kit Authors.
 
 If you are looking for the website of GoCloud Systems, which is unrelated to the

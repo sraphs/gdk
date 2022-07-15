@@ -343,9 +343,9 @@ func NewPrefixedBucket(b Bucket, prefix string) Bucket {
 	return &prefixedBucket{base: b, prefix: prefix}
 }
 
-func (b *prefixedBucket) ErrorCode(err error) gdkerr.ErrorCode { return b.base.ErrorCode(err) }
-func (b *prefixedBucket) As(i interface{}) bool                  { return b.base.As(i) }
-func (b *prefixedBucket) ErrorAs(err error, i interface{}) bool  { return b.base.ErrorAs(err, i) }
+func (b *prefixedBucket) ErrorCode(err error) gdkerr.ErrorCode  { return b.base.ErrorCode(err) }
+func (b *prefixedBucket) As(i interface{}) bool                 { return b.base.As(i) }
+func (b *prefixedBucket) ErrorAs(err error, i interface{}) bool { return b.base.ErrorAs(err, i) }
 func (b *prefixedBucket) Attributes(ctx context.Context, key string) (*Attributes, error) {
 	return b.base.Attributes(ctx, b.prefix+key)
 }
@@ -395,9 +395,9 @@ func NewSingleKeyBucket(b Bucket, key string) Bucket {
 	return &singleKeyBucket{base: b, key: key}
 }
 
-func (b *singleKeyBucket) ErrorCode(err error) gdkerr.ErrorCode { return b.base.ErrorCode(err) }
-func (b *singleKeyBucket) As(i interface{}) bool                  { return b.base.As(i) }
-func (b *singleKeyBucket) ErrorAs(err error, i interface{}) bool  { return b.base.ErrorAs(err, i) }
+func (b *singleKeyBucket) ErrorCode(err error) gdkerr.ErrorCode  { return b.base.ErrorCode(err) }
+func (b *singleKeyBucket) As(i interface{}) bool                 { return b.base.As(i) }
+func (b *singleKeyBucket) ErrorAs(err error, i interface{}) bool { return b.base.ErrorAs(err, i) }
 func (b *singleKeyBucket) Attributes(ctx context.Context, _ string) (*Attributes, error) {
 	return b.base.Attributes(ctx, b.key)
 }

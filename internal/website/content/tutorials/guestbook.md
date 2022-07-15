@@ -34,7 +34,7 @@ Before you can do anything else, you need to clone the Go CDK repository. The
 repository contains the Guestbook sample.
 
 ```shell
-git clone https://github.com/google/go-cloud.git
+git clone https://github.com/sraphs/gdk.git
 cd go-cloud/samples/guestbook
 ```
 
@@ -228,7 +228,7 @@ for the MOTD and Gopher logo.
 You first need to set up an Azure account and install the [Azure CLI][]. Then,
 use the `az` CLI to log in.
 
-[#1305]: https://github.com/google/go-cloud/issues/1305
+[#1305]: https://github.com/sraphs/gdk/issues/1305
 [Azure CLI]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
 
 ```shell

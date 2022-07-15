@@ -1,8 +1,8 @@
 cloud.google.com/go/compute
 github.com/Shopify/sarama
+github.com/aliyun/aliyun-oss-go-sdk
 github.com/armon/go-metrics
 github.com/armon/go-radix
-github.com/aws/aws-sdk-go
 github.com/aws/aws-sdk-go-v2
 github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream
 github.com/aws/aws-sdk-go-v2/config

@@ -27,7 +27,7 @@ $ ./upload azblob://go-cloud-bucket gopher.png
 
 (You can download the finished tutorial [from GitHub][samples/tutorial]).
 
-[samples/tutorial]: https://github.com/google/go-cloud/tree/master/samples/tutorial/
+[samples/tutorial]: https://github.com/sraphs/gdk/tree/master/samples/tutorial/
 
 ## Setup
 

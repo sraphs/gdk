@@ -112,155 +112,16 @@ recommend starting with `Latest` as it's conceptually simpler to work with.
 
 ## Other Usage Samples
 
-* [CLI Sample](https://github.com/google/go-cloud/tree/master/samples/gocdk-runtimevar)
+* [CLI Sample](https://github.com/sraphs/gdk/tree/master/samples/gocdk-runtimevar)
 * [Guestbook sample](https://github.com/sraphs/gdk/tutorials/guestbook/)
 * [runtimevar package examples](https://godoc.org/github.com/sraphs/gdk/runtimevar#pkg-examples)
 
 ## Supported Services {#services}
 
-### GCP Runtime Configurator {#gcprc}
-
-To open a variable stored in [GCP Runtime Configurator][] via a URL, you can use
-the `runtimevar.OpenVariable` function as shown in the example below.
-
-[GCP Runtime Configurator]: https://cloud.google.com/deployment-manager/runtime-configurator/
-
-`runtimevar.OpenVariable` will use Application Default Credentials; if you have
-authenticated via [`gcloud auth application-default login`][], it will use those credentials. See
-[Application Default Credentials][GCP creds] to learn about authentication
-alternatives, including using environment variables.
-
-[GCP creds]: https://cloud.google.com/docs/authentication/production
-[`gcloud auth application-default login`]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
-
-{{< goexample
-"github.com/sraphs/gdk/runtimevar/gcpruntimeconfig.Example_openVariableFromURL" >}}
-
-#### GCP Constructor {#gcprc-ctor}
-
-The [`gcpruntimeconfig.OpenVariable`][] constructor opens a Runtime Configurator
-variable.
-
-{{< goexample "github.com/sraphs/gdk/runtimevar/gcpruntimeconfig.ExampleOpenVariable" >}}
-
-[`gcpruntimeconfig.OpenVariable`]: https://godoc.org/github.com/sraphs/gdk/runtimevar/gcpruntimeconfig#OpenVariable
-
-### GCP Secret Manager {#gcpsm}
-
-To open a variable stored in [GCP Secret Manager][] via a URL, you can use
-the `runtimevar.OpenVariable` function as shown in the example below.
-
-[GCP Secret Manager]: https://cloud.google.com/secret-manager
-
-`runtimevar.OpenVariable` will use Application Default Credentials; if you have
-authenticated via [`gcloud auth application-default login`][], it will use those credentials. See
-[Application Default Credentials][GCP creds] to learn about authentication
-alternatives, including using environment variables.
-
-[GCP creds]: https://cloud.google.com/docs/authentication/production
-[`gcloud auth application-default login`]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
-
-{{< goexample
-"github.com/sraphs/gdk/runtimevar/gcpsecretmanager.Example_openVariableFromURL" >}}
-
-#### GCP Constructor {#gcpsm-ctor}
-
-The [`gcpsecretmanager.OpenVariable`][] constructor opens a Secret Manager
-variable.
-
-{{< goexample "github.com/sraphs/gdk/runtimevar/gcpsecretmanager.ExampleOpenVariable" >}}
-
-[`gcpsecretmanager.OpenVariable`]: https://godoc.org/github.com/sraphs/gdk/runtimevar/gcpsecretmanager#OpenVariable
-
-### AWS Parameter Store {#awsps}
-
-To open a variable stored in [AWS Parameter Store][] via a URL, you can use the
-`runtimevar.OpenVariable` function as shown in the example below.
-
-[AWS Parameter Store]:
-https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html
-
-If you set the "awssdk=v1" query parameter,
-`runtimevar.OpenVariable` will create a default AWS Session with the
-`SharedConfigEnable` option enabled; if you have authenticated with the AWS CLI,
-it will use those credentials. See [AWS Session][] to learn about authentication
-alternatives, including using environment variables.
-
-If you set the "awssdk=v2" query parameter, it will instead create an AWS
-Config based on the AWS SDK V2; see [AWS V2 Config][] to learn more.
-
-If no "awssdk" query parameter is set, Go CDK will use a default (currently V1).
-
-[AWS Session]: https://docs.aws.amazon.com/sdk-for-go/api/aws/session/
-[AWS V2 Config]: https://aws.github.io/aws-sdk-go-v2/docs/configuring-sdk/
-
-{{< goexample
-"github.com/sraphs/gdk/runtimevar/awsparamstore.Example_openVariableFromURL" >}}
-
-#### AWS Constructor {#awsps-ctor}
-
-The [`awsparamstore.OpenVariable`][] constructor opens a Parameter Store
-variable.
-
-{{< goexample "github.com/sraphs/gdk/runtimevar/awsparamstore.ExampleOpenVariable" >}}
-
-[`awsparamstore.OpenVariableV2`][] is similar but uses the AWS SDK V2.
-
-{{< goexample "github.com/sraphs/gdk/runtimevar/awsparamstore.ExampleOpenVariableV2" >}}
-
-[`awsparamstore.OpenVariable`]:
-https://godoc.org/github.com/sraphs/gdk/runtimevar/awsparamstore#OpenVariable
-[`awsparamstore.OpenVariableV2`]:
-https://godoc.org/github.com/sraphs/gdk/runtimevar/awsparamstore#OpenVariableV2
-
-### AWS Secrets Manager {#awssm}
-
-To open a variable stored in [AWS Secrets Manager][] via a URL, you can use the
-`runtimevar.OpenVariable` function as shown in the example below.
-
-[AWS Secrets Manager]:
-https://aws.amazon.com/secrets-manager
-
-If you set the "awssdk=v1" query parameter,
-`runtimevar.OpenVariable` will create a default AWS Session with the
-`SharedConfigEnable` option enabled; if you have authenticated with the AWS CLI,
-it will use those credentials. See [AWS Session][] to learn about authentication
-alternatives, including using environment variables.
-
-If you set the "awssdk=v2" query parameter, it will instead create an AWS
-Config based on the AWS SDK V2; see [AWS V2 Config][] to learn more.
-
-If no "awssdk" query parameter is set, Go CDK will use a default (currently V1).
-
-[AWS Session]: https://docs.aws.amazon.com/sdk-for-go/api/aws/session/
-[AWS V2 Config]: https://aws.github.io/aws-sdk-go-v2/docs/configuring-sdk/
-
-{{< goexample
-"github.com/sraphs/gdk/runtimevar/awssecretsmanager.Example_openVariableFromURL" >}}
-
-#### AWS Constructor {#awssm-ctor}
-
-The [`awssecretsmanager.OpenVariable`][] constructor opens a Secrets Manager
-variable.
-
-{{< goexample "github.com/sraphs/gdk/runtimevar/awssecretsmanager.ExampleOpenVariable" >}}
-
-[`awssecretsmanager.OpenVariableV2`][] is similar but uses the AWS SDK V2.
-
-{{< goexample "github.com/sraphs/gdk/runtimevar/awssecretsmanager.ExampleOpenVariableV2" >}}
-
-[`awssecretsmanager.OpenVariable`]:
-https://godoc.org/github.com/sraphs/gdk/runtimevar/awssecretsmanager#OpenVariable
-[`awssecretsmanager.OpenVariableV2`]:
-https://godoc.org/github.com/sraphs/gdk/runtimevar/awssecretsmanager#OpenVariableV2
-
-Note that both `secretsmanager:GetSecretValue` and `secretsmanager:DescribeSecret` actions must be allowed in
-the caller's IAM policy.
-
 ### etcd {#etcd}
 
 *NOTE*: Support for `etcd` has been temporarily dropped due to dependency
-issues. See https://github.com/google/go-cloud/issues/2914.
+issues. See https://github.com/sraphs/gdk/issues/2914.
 
 You can use `runtimevar.etcd` in Go CDK version `v0.20.0` or earlier.
 

@@ -13,7 +13,6 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go v1.44.55 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.16.7 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.15.14 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.12.9 // indirect
@@ -33,10 +32,10 @@ require (
 	github.com/google/go-replayers/httpreplay v1.1.1 // indirect
 	github.com/google/martian/v3 v3.3.2 // indirect
 	github.com/googleapis/gax-go/v2 v2.4.0 // indirect
-	github.com/jmespath/go-jmespath v0.4.0 // indirect
+	github.com/stretchr/testify v1.7.1 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.4 // indirect
 	go.opencensus.io v0.23.0 // indirect
-	go.uber.org/atomic v1.7.0 // indirect
+	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.17.0 // indirect
 	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect

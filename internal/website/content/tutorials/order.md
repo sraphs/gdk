@@ -31,7 +31,7 @@ Then you need to clone the Go CDK repository. The
 repository contains the Order Processor sample.
 
 ```shell
-git clone https://github.com/google/go-cloud.git
+git clone https://github.com/sraphs/gdk.git
 cd go-cloud/samples/order
 ```
 

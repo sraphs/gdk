@@ -161,47 +161,11 @@ You can delete blobs using the `Bucket.Delete` method.
 ## Other Usage Samples
 
 * [CLI Tutorial]({{< ref "/tutorials/cli-uploader.md" >}})
-* [CLI Sample](https://github.com/google/go-cloud/tree/master/samples/gocdk-blob)
+* [CLI Sample](https://github.com/sraphs/gdk/tree/master/samples/gocdk-blob)
 * [Guestbook sample](https://github.com/sraphs/gdk/tutorials/guestbook/)
 * [blob package examples](https://godoc.org/github.com/sraphs/gdk/blob#pkg-examples)
 
 ## Supported Storage Services {#services}
-
-### Google Cloud Storage {#gcs}
-
-[Google Cloud Storage][] (GCS) URLs in the Go CDK closely resemble the URLs
-you would see in the [`gsutil`][] CLI.
-
-[Google Cloud Storage]: https://cloud.google.com/storage/
-[`gsutil`]: https://cloud.google.com/storage/docs/gsutil
-
-`blob.OpenBucket` will use Application Default Credentials; if you have
-authenticated via [`gcloud auth application-default login`][], it will use those credentials. See
-[Application Default Credentials][GCP creds] to learn about authentication
-alternatives, including using environment variables.
-
-[GCP creds]: https://cloud.google.com/docs/authentication/production
-[`gcloud auth application-default login`]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
-
-{{< goexample "github.com/sraphs/gdk/blob/gcsblob.Example_openBucketFromURL" >}}
-
-Full details about acceptable URLs can be found under the API reference for
-[`gcsblob.URLOpener`][].
-
-[`gcsblob.URLOpener`]: https://godoc.org/github.com/sraphs/gdk/blob/gcsblob#URLOpener
-
-#### GCS Constructor {#gcs-ctor}
-
-The [`gcsblob.OpenBucket`][] constructor opens a GCS bucket. You must first
-create a `*net/http.Client` that sends requests authorized by [Google Cloud
-Platform credentials][GCP creds]. (You can reuse the same client for any
-other API that takes in a `*gcp.HTTPClient`.) You can find functions in the
-[`github.com/sraphs/gdk/gcp`][] package to set this up for you.
-
-{{< goexample "github.com/sraphs/gdk/blob/gcsblob.ExampleOpenBucket" >}}
-
-[`gcsblob.OpenBucket`]: https://godoc.org/github.com/sraphs/gdk/blob/gcsblob#OpenBucket
-[`github.com/sraphs/gdk/gcp`]: https://godoc.org/github.com/sraphs/gdk/gcp
 
 ### S3 {#s3}
 
@@ -269,34 +233,6 @@ See [`aws.ConfigFromURLParams`][] for more details on supported URL options for 
 [Minio]: https://www.minio.io/
 [SeaweedFS]: https://github.com/chrislusf/seaweedfs
 [S3-compatible storage servers]: https://en.wikipedia.org/wiki/Amazon_S3#S3_API_and_competing_services
-
-### Azure Blob Storage {#azure}
-
-Azure Blob Storage URLs in the Go CDK allow you to identify [Azure Blob Storage][] containers
-when opening a bucket with `blob.OpenBucket`. Go CDK uses the environment
-variables `AZURE_STORAGE_ACCOUNT`, `AZURE_STORAGE_KEY`, and
-`AZURE_STORAGE_SAS_TOKEN` to configure the credentials. `AZURE_STORAGE_ACCOUNT`
-is required, along with one of the other two.
-
-{{< goexample "github.com/sraphs/gdk/blob/azureblob.Example_openBucketFromURL" >}}
-
-Full details about acceptable URLs can be found under the API reference for
-[`azureblob.URLOpener`][].
-
-[Azure Blob Storage]: https://azure.microsoft.com/en-us/services/storage/blobs/
-[`azureblob.URLOpener`]: https://godoc.org/github.com/sraphs/gdk/blob/azureblob#URLOpener
-
-#### Azure Blob Constructor {#azure-ctor}
-
-The [`azureblob.OpenBucket`][] constructor opens an Azure Blob Storage container.
-`azureblob` operates on [Azure Storage Block Blobs][]. You must first create
-Azure Storage credentials and then create an Azure Storage pipeline before
-you can open a container.
-
-{{< goexample "github.com/sraphs/gdk/blob/azureblob.ExampleOpenBucket" >}}
-
-[Azure Storage Block Blobs]: https://docs.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs#about-block-blobs
-[`azureblob.OpenBucket`]: https://godoc.org/github.com/sraphs/gdk/blob/azureblob#OpenBucket
 
 ### Local Storage {#local}
 
