@@ -1,36 +1,23 @@
-/*
-Copyright 2019 The Go Cloud Development Kit Authors
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    https://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 /* Basic layout {{{1 */
 html {
   font: 14px/1.5 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
 }
+
 body {
   background: #fff;
   color: #000;
   margin: 0;
   padding: 0;
 }
+
 .PageLayout {
   display: grid;
   grid-template-columns: 15rem 1fr;
@@ -44,18 +31,21 @@ body {
   padding: 0;
   width: 100vw;
 }
+
 @media (max-width: 768px) {
   .PageLayout {
     grid-template-columns: 100%;
-    grid-template-areas: 'hd' 'main' 'sd' 'ft';
+    grid-template-areas: 'hd''main''sd''ft';
   }
 }
+
 .PageHeader {
   background: #00add8;
   grid-area: hd;
   margin: 0;
   padding: 0;
 }
+
 .PageLogo {
   box-sizing: border-box;
   margin: 0 auto;
@@ -63,27 +53,33 @@ body {
   text-align: center;
   width: 20rem;
 }
+
 .PageLogo-image {
   height: 80px;
 }
+
 @media (max-width: 768px) {
   .PageLogo-image {
     height: 72px;
   }
 }
+
 .MainContent {
   box-sizing: border-box;
   grid-area: main;
   margin: 0;
-  overflow-x: hidden;  /* creates a new block formatting context for children overflows */
+  overflow-x: hidden;
+  /* creates a new block formatting context for children overflows */
   padding: 2rem 2rem 3rem;
 }
+
 .MainContent-bounds {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   max-width: 50rem;
 }
+
 .Sidenav {
   background: #dbd9d6;
   box-sizing: border-box;
@@ -93,40 +89,48 @@ body {
   margin: 0;
   padding: 1rem 2rem 2rem 1rem;
 }
+
 .Sidenav-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
+
 .Sidenav-pageList {
   margin: 0 0 0 2rem;
   padding: 0;
   list-style: none;
 }
+
 .Sidenav-section {
   margin: 0.5rem 0 0;
   padding: 0;
 }
+
 .Sidenav-sectionLink {
   color: #000;
   font-weight: bold;
   text-decoration: none;
 }
+
 .Sidenav-page {
   margin: 0.3rem 0 0;
   padding: 0;
 }
+
 .Sidenav-pageLink {
   color: #000;
   font-weight: normal;
   text-decoration: none;
 }
+
 .Sidenav-sectionLink:hover,
 .Sidenav-sectionLink:active,
 .Sidenav-pageLink:hover,
 .Sidenav-pageLink:active {
   text-decoration: underline;
 }
+
 .PageTOC {
   border-left: 2px solid #dbd9d6;
   float: right;
@@ -135,6 +139,7 @@ body {
   min-width: 15%;
   padding: 0.5rem 0 0.5rem 1rem;
 }
+
 @media (max-width: 1024px) {
   .PageTOC {
     border: none;
@@ -145,27 +150,33 @@ body {
     padding: 0;
   }
 }
+
 .PageTOC {
   font-size: 0.85rem;
 }
+
 .PageTOC-heading {
   font: 700 1rem/1.25 'Work Sans', 'Roboto', sans-serif;
   margin: 0 0 0.5rem;
   text-rendering: optimizeLegibility;
 }
+
 .PageTOC>nav>ul>li>ul {
   /* Don't indent top-level list. */
   margin: 0;
 }
+
 .PageTOC ul {
   list-style: none;
   margin: 0 0 0 1rem;
   padding: 0;
 }
+
 .PageTOC li {
   margin: 0.3rem 0;
   padding: 0;
 }
+
 .PageTOC>nav>ul {
   /* CSS trick to remove h1 level from TOC.
    * https://github.com/gohugoio/hugo/issues/1778 */
@@ -173,6 +184,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .PageTOC>nav>ul>li {
   /* CSS trick to remove h1 level from TOC.
    * https://github.com/gohugoio/hugo/issues/1778 */
@@ -180,6 +192,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .PageFooter {
   background: #555759;
   box-sizing: border-box;
@@ -190,15 +203,18 @@ body {
   margin: 0;
   padding: 2rem 2rem 1rem;
 }
+
 .PageFooter-paragraph {
   margin: 1em auto;
   max-width: 40rem;
   text-align: justify;
 }
+
 .PageFooter-link {
   color: #ffffff;
   text-decoration: underline;
 }
+
 .FooterLinks {
   box-sizing: border-box;
   font-size: 1rem;
@@ -208,19 +224,23 @@ body {
   padding: 0;
   max-width: 40rem;
 }
+
 .FooterLinks-item {
   margin: 0;
   padding: 0;
   text-align: justify;
 }
+
 .FooterLinks-link {
   color: #9eecff;
   text-decoration: none;
 }
+
 .FooterLinks-link:hover,
 .FooterLinks-link:active {
   text-decoration: underline;
 }
+
 .PageList {
   box-sizing: border-box;
   display: grid;
@@ -229,11 +249,13 @@ body {
   margin: 0;
   padding: 0;
 }
+
 @media (max-width: 768px) {
   .PageList {
     grid-template-columns: minmax(15rem, 1fr);
   }
 }
+
 .PageList-item {
   box-sizing: border-box;
   display: flex;
@@ -242,23 +264,28 @@ body {
   padding: 0 1rem;
   place-content: start;
 }
+
 .PageList-itemTitle {
   color: #000;
 }
+
 .PageList-summary {
   flex: 1;
   margin: 0;
   padding: 0;
 }
+
 .PageList-readMore {
   margin: 1rem 0 0;
   padding: 0;
 }
+
 .HowtoList {
   font: 300 1.5rem/1.25 'Roboto', sans-serif;
   margin: 1rem 0 0;
   padding: 0;
 }
+
 .HowtoList-item {
   margin: 0.5rem 0 0.5rem 2rem;
   padding: 0;
@@ -271,16 +298,19 @@ body {
   margin: 0 0 0.5rem;
   text-rendering: optimizeLegibility;
 }
+
 .MainContent h2 {
   font: 700 1.5rem/1.25 'Work Sans', 'Roboto', sans-serif;
   margin: 2rem 0 0.5rem;
   text-rendering: optimizeLegibility;
 }
+
 .MainContent h3 {
   font: 700 1.25rem/1.25 'Work Sans', 'Roboto', sans-serif;
   margin: 3rem 0 0.5rem;
   text-rendering: optimizeLegibility;
 }
+
 .MainContent h4,
 .MainContent h5,
 .MainContent h6 {
@@ -288,6 +318,7 @@ body {
   margin: 2rem 0 0.5rem;
   text-rendering: optimizeLegibility;
 }
+
 .MainContent h1 .anchor,
 .MainContent h2 .anchor,
 .MainContent h3 .anchor,
@@ -298,6 +329,7 @@ body {
   font-size: 1rem;
   margin: 0 0.2rem;
 }
+
 .MainContent h1 :link:hover,
 .MainContent h2 :link:hover,
 .MainContent h3 :link:hover,
@@ -306,6 +338,7 @@ body {
 .MainContent h6 :link:hover {
   text-decoration: none;
 }
+
 .MainContent h1:hover .anchor,
 .MainContent h2:hover .anchor,
 .MainContent h3:hover .anchor,
@@ -314,11 +347,13 @@ body {
 .MainContent h6:hover .anchor {
   display: inline;
 }
+
 /* Code */
 .MainContent code {
   font-size: 85%;
   font-family: 'Source Code Pro', monospace;
 }
+
 .MainContent pre {
   box-sizing: border-box;
   background: #f9f9f9;
@@ -331,15 +366,18 @@ body {
   white-space: pre;
   width: 100%;
 }
+
 .MainContent pre code {
   font-size: 100%;
 }
+
 .highlight {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   width: 100%;
 }
+
 /* Figures */
 .FullWidthFigure {
   border: thin solid #dbd9d6;
@@ -347,18 +385,22 @@ body {
   margin: 1rem 0;
   padding: 0.5rem 0;
 }
+
 .FullWidthFigure img {
   width: 100%;
 }
+
 /* Links */
 .MainContent :link {
   color: #00758d;
   text-decoration: none;
 }
+
 .MainContent :visited {
   color: #00758d;
   text-decoration: none;
 }
+
 .MainContent :link:hover,
 .MainContent :link:focus,
 .MainContent :visited:hover,
