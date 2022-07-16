@@ -184,3 +184,49 @@ subscriptions, as detailed in the [subscription guide][subscribe-mem-ctor].
 
 [`mempubsub.NewTopic` function]: https://godoc.org/github.com/sraphs/gdk/pubsub/mempubsub#NewTopic
 [subscribe-mem-ctor]: {{< ref "./subscribe.md#mem-ctor" >}}
+
+
+### Redis {#redis}
+
+The GDK can publish to a [Redis][] subject. A Redis URL only includes the
+subject name. The Redis server is discovered from the `REDIS_SERVER_URL`
+environment variable (which is something like `redis://redis.example.com`).
+
+{{< goexample "github.com/sraphs/gdk/pubsub/redispubsub.Example_openTopicFromURL" >}}
+
+Because Redis does not natively support metadata, messages sent to Redis will
+be encoded with [gob][].
+
+[gob]: https://golang.org/pkg/encoding/gob/
+[Redis]: https://redis.io/
+
+#### Redis Constructor {#redis-ctor}
+
+The [`redispubsub.OpenTopic`][] constructor opens a Redis subject as a topic. You
+must first create an [`*redis.Client`][] to your Redis instance.
+
+{{< goexample "github.com/sraphs/gdk/pubsub/redispubsub.ExampleOpenTopic" >}}
+
+[`*redis.Client`]: https://godoc.org/github.com/go-redis/redis/v8#Client
+[`redispubsub.OpenTopic`]: https://godoc.org/github.com/sraphs/gdk/pubsub/redispubsub#OpenTopic
+
+
+### Pulsar {#pulsar}
+
+The GDK can publish to a [Pulsar][] subject. A Pulsar URL only includes the
+subject name. The Pulsar server is discovered from the `Pulsar_SERVER_URL`
+environment variable (which is something like `pulsar://localhost:6650`).
+
+{{< goexample "github.com/sraphs/gdk/pubsub/pulsarpubsub.Example_openTopicFromURL" >}}
+
+[Pulsar]: https://pulsar.apache.org/
+
+#### Pulsar Constructor {#pulsar-ctor}
+
+The [`pulsarpubsub.OpenTopic`][] constructor opens a Pulsar topic to publish
+messages to.
+
+{{< goexample "github.com/sraphs/gdk/pubsub/pulsarpubsub.ExampleOpenTopic" >}}
+
+[`pulsarpubsub.OpenTopic`]: https://godoc.org/github.com/sraphs/gdk/pubsub/pulsarpubsub#OpenTopic
+[`pulsarpubsub.MinimalConfig`]: https://godoc.org/github.com/sraphs/gdk/pubsub/pulsarpubsub#MinimalConfig

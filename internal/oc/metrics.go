@@ -1,4 +1,4 @@
-// Package oc supports OpenCensus tracing and metrics for the Go Cloud Development Kit.
+// Package oc supports OpenCensus tracing and metrics for the Go Development Kit.
 package oc
 
 import (

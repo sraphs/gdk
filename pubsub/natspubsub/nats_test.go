@@ -232,23 +232,23 @@ func TestErrorCode(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if gce := dt.ErrorCode(nil); gce != gdkerr.OK {
-		t.Fatalf("Expected %v, got %v", gdkerr.OK, gce)
+	if err := dt.ErrorCode(nil); err != gdkerr.OK {
+		t.Fatalf("Expected %v, got %v", gdkerr.OK, err)
 	}
-	if gce := dt.ErrorCode(context.Canceled); gce != gdkerr.Canceled {
-		t.Fatalf("Expected %v, got %v", gdkerr.Canceled, gce)
+	if err := dt.ErrorCode(context.Canceled); err != gdkerr.Canceled {
+		t.Fatalf("Expected %v, got %v", gdkerr.Canceled, err)
 	}
-	if gce := dt.ErrorCode(nats.ErrBadSubject); gce != gdkerr.FailedPrecondition {
-		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, gce)
+	if err := dt.ErrorCode(nats.ErrBadSubject); err != gdkerr.FailedPrecondition {
+		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, err)
 	}
-	if gce := dt.ErrorCode(nats.ErrAuthorization); gce != gdkerr.PermissionDenied {
-		t.Fatalf("Expected %v, got %v", gdkerr.PermissionDenied, gce)
+	if err := dt.ErrorCode(nats.ErrAuthorization); err != gdkerr.PermissionDenied {
+		t.Fatalf("Expected %v, got %v", gdkerr.PermissionDenied, err)
 	}
-	if gce := dt.ErrorCode(nats.ErrMaxPayload); gce != gdkerr.ResourceExhausted {
-		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, gce)
+	if err := dt.ErrorCode(nats.ErrMaxPayload); err != gdkerr.ResourceExhausted {
+		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, err)
 	}
-	if gce := dt.ErrorCode(nats.ErrReconnectBufExceeded); gce != gdkerr.ResourceExhausted {
-		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, gce)
+	if err := dt.ErrorCode(nats.ErrReconnectBufExceeded); err != gdkerr.ResourceExhausted {
+		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, err)
 	}
 
 	// Subscriptions
@@ -256,32 +256,32 @@ func TestErrorCode(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if gce := ds.ErrorCode(nil); gce != gdkerr.OK {
-		t.Fatalf("Expected %v, got %v", gdkerr.OK, gce)
+	if err := ds.ErrorCode(nil); err != gdkerr.OK {
+		t.Fatalf("Expected %v, got %v", gdkerr.OK, err)
 	}
-	if gce := ds.ErrorCode(context.Canceled); gce != gdkerr.Canceled {
-		t.Fatalf("Expected %v, got %v", gdkerr.Canceled, gce)
+	if err := ds.ErrorCode(context.Canceled); err != gdkerr.Canceled {
+		t.Fatalf("Expected %v, got %v", gdkerr.Canceled, err)
 	}
-	if gce := ds.ErrorCode(nats.ErrBadSubject); gce != gdkerr.FailedPrecondition {
-		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, gce)
+	if err := ds.ErrorCode(nats.ErrBadSubject); err != gdkerr.FailedPrecondition {
+		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, err)
 	}
-	if gce := ds.ErrorCode(nats.ErrBadSubscription); gce != gdkerr.NotFound {
-		t.Fatalf("Expected %v, got %v", gdkerr.NotFound, gce)
+	if err := ds.ErrorCode(nats.ErrBadSubscription); err != gdkerr.NotFound {
+		t.Fatalf("Expected %v, got %v", gdkerr.NotFound, err)
 	}
-	if gce := ds.ErrorCode(nats.ErrTypeSubscription); gce != gdkerr.FailedPrecondition {
-		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, gce)
+	if err := ds.ErrorCode(nats.ErrTypeSubscription); err != gdkerr.FailedPrecondition {
+		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, err)
 	}
-	if gce := ds.ErrorCode(nats.ErrAuthorization); gce != gdkerr.PermissionDenied {
-		t.Fatalf("Expected %v, got %v", gdkerr.PermissionDenied, gce)
+	if err := ds.ErrorCode(nats.ErrAuthorization); err != gdkerr.PermissionDenied {
+		t.Fatalf("Expected %v, got %v", gdkerr.PermissionDenied, err)
 	}
-	if gce := ds.ErrorCode(nats.ErrMaxMessages); gce != gdkerr.ResourceExhausted {
-		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, gce)
+	if err := ds.ErrorCode(nats.ErrMaxMessages); err != gdkerr.ResourceExhausted {
+		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, err)
 	}
-	if gce := ds.ErrorCode(nats.ErrSlowConsumer); gce != gdkerr.ResourceExhausted {
-		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, gce)
+	if err := ds.ErrorCode(nats.ErrSlowConsumer); err != gdkerr.ResourceExhausted {
+		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, err)
 	}
-	if gce := ds.ErrorCode(nats.ErrTimeout); gce != gdkerr.DeadlineExceeded {
-		t.Fatalf("Expected %v, got %v", gdkerr.DeadlineExceeded, gce)
+	if err := ds.ErrorCode(nats.ErrTimeout); err != gdkerr.DeadlineExceeded {
+		t.Fatalf("Expected %v, got %v", gdkerr.DeadlineExceeded, err)
 	}
 
 	// Queue Subscription
@@ -289,32 +289,32 @@ func TestErrorCode(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if gce := qs.ErrorCode(nil); gce != gdkerr.OK {
-		t.Fatalf("Expected %v, got %v", gdkerr.OK, gce)
+	if err := qs.ErrorCode(nil); err != gdkerr.OK {
+		t.Fatalf("Expected %v, got %v", gdkerr.OK, err)
 	}
-	if gce := qs.ErrorCode(context.Canceled); gce != gdkerr.Canceled {
-		t.Fatalf("Expected %v, got %v", gdkerr.Canceled, gce)
+	if err := qs.ErrorCode(context.Canceled); err != gdkerr.Canceled {
+		t.Fatalf("Expected %v, got %v", gdkerr.Canceled, err)
 	}
-	if gce := qs.ErrorCode(nats.ErrBadSubject); gce != gdkerr.FailedPrecondition {
-		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, gce)
+	if err := qs.ErrorCode(nats.ErrBadSubject); err != gdkerr.FailedPrecondition {
+		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, err)
 	}
-	if gce := qs.ErrorCode(nats.ErrBadSubscription); gce != gdkerr.NotFound {
-		t.Fatalf("Expected %v, got %v", gdkerr.NotFound, gce)
+	if err := qs.ErrorCode(nats.ErrBadSubscription); err != gdkerr.NotFound {
+		t.Fatalf("Expected %v, got %v", gdkerr.NotFound, err)
 	}
-	if gce := qs.ErrorCode(nats.ErrTypeSubscription); gce != gdkerr.FailedPrecondition {
-		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, gce)
+	if err := qs.ErrorCode(nats.ErrTypeSubscription); err != gdkerr.FailedPrecondition {
+		t.Fatalf("Expected %v, got %v", gdkerr.FailedPrecondition, err)
 	}
-	if gce := qs.ErrorCode(nats.ErrAuthorization); gce != gdkerr.PermissionDenied {
-		t.Fatalf("Expected %v, got %v", gdkerr.PermissionDenied, gce)
+	if err := qs.ErrorCode(nats.ErrAuthorization); err != gdkerr.PermissionDenied {
+		t.Fatalf("Expected %v, got %v", gdkerr.PermissionDenied, err)
 	}
-	if gce := qs.ErrorCode(nats.ErrMaxMessages); gce != gdkerr.ResourceExhausted {
-		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, gce)
+	if err := qs.ErrorCode(nats.ErrMaxMessages); err != gdkerr.ResourceExhausted {
+		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, err)
 	}
-	if gce := qs.ErrorCode(nats.ErrSlowConsumer); gce != gdkerr.ResourceExhausted {
-		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, gce)
+	if err := qs.ErrorCode(nats.ErrSlowConsumer); err != gdkerr.ResourceExhausted {
+		t.Fatalf("Expected %v, got %v", gdkerr.ResourceExhausted, err)
 	}
-	if gce := qs.ErrorCode(nats.ErrTimeout); gce != gdkerr.DeadlineExceeded {
-		t.Fatalf("Expected %v, got %v", gdkerr.DeadlineExceeded, gce)
+	if err := qs.ErrorCode(nats.ErrTimeout); err != gdkerr.DeadlineExceeded {
+		t.Fatalf("Expected %v, got %v", gdkerr.DeadlineExceeded, err)
 	}
 }
 

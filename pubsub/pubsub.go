@@ -99,7 +99,7 @@ type Message struct {
 	// The callback will be called exactly once, before the message is sent.
 	//
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	BeforeSend func(asFunc func(interface{}) bool) error
 
 	// AfterSend is a callback used when sending a message. It will always be
@@ -109,7 +109,7 @@ type Message struct {
 	// If Send returns an error, AfterSend will not be called.
 	//
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	AfterSend func(asFunc func(interface{}) bool) error
 
 	// asFunc invokes driver.Message.AsFunc.
@@ -188,7 +188,7 @@ func (m *Message) Nack() {
 }
 
 // As converts i to driver-specific types.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information, the "As"
+// See https://sraphs.github.io/gdk/concepts/as/ for background information, the "As"
 // examples in this package for examples, and the driver package
 // documentation for the specific types supported for that driver.
 // As panics unless it is called on a message obtained from Subscription.Receive.
@@ -285,7 +285,7 @@ func (t *Topic) Shutdown(ctx context.Context) (err error) {
 }
 
 // As converts i to driver-specific types.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information, the "As"
+// See https://sraphs.github.io/gdk/concepts/as/ for background information, the "As"
 // examples in this package for examples, and the driver package
 // documentation for the specific types supported for that driver.
 func (t *Topic) As(i interface{}) bool {
@@ -295,7 +295,7 @@ func (t *Topic) As(i interface{}) bool {
 // ErrorAs converts err to driver-specific types.
 // ErrorAs panics if i is nil or not a pointer.
 // ErrorAs returns false if err == nil.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 func (t *Topic) ErrorAs(err error, i interface{}) bool {
 	return gdkerr.ErrorAs(err, i, t.driver.ErrorAs)
 }
@@ -720,7 +720,7 @@ func (s *Subscription) Shutdown(ctx context.Context) (err error) {
 }
 
 // As converts i to driver-specific types.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information, the "As"
+// See https://sraphs.github.io/gdk/concepts/as/ for background information, the "As"
 // examples in this package for examples, and the driver package
 // documentation for the specific types supported for that driver.
 func (s *Subscription) As(i interface{}) bool {
@@ -842,7 +842,7 @@ type SubscriptionURLOpener interface {
 // URLMux is a URL opener multiplexer. It matches the scheme of the URLs
 // against a set of registered schemes and calls the opener that matches the
 // URL's scheme.
-// See https://github.com/sraphs/gdk/concepts/urls/ for more information.
+// See https://sraphs.github.io/gdk/concepts/urls/ for more information.
 //
 // The zero value is a multiplexer with no registered schemes.
 type URLMux struct {
@@ -928,7 +928,7 @@ func DefaultURLMux() *URLMux {
 
 // OpenTopic opens the Topic identified by the URL given.
 // See the URLOpener documentation in driver subpackages for
-// details on supported URL formats, and https://github.com/sraphs/gdk/concepts/urls
+// details on supported URL formats, and https://sraphs.github.io/gdk/concepts/urls
 // for more information.
 func OpenTopic(ctx context.Context, urlstr string) (*Topic, error) {
 	return defaultURLMux.OpenTopic(ctx, urlstr)
@@ -936,7 +936,7 @@ func OpenTopic(ctx context.Context, urlstr string) (*Topic, error) {
 
 // OpenSubscription opens the Subscription identified by the URL given.
 // See the URLOpener documentation in driver subpackages for
-// details on supported URL formats, and https://github.com/sraphs/gdk/concepts/urls
+// details on supported URL formats, and https://sraphs.github.io/gdk/concepts/urls
 // for more information.
 func OpenSubscription(ctx context.Context, urlstr string) (*Subscription, error) {
 	return defaultURLMux.OpenSubscription(ctx, urlstr)

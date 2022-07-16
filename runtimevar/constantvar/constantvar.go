@@ -6,7 +6,7 @@
 //
 // For runtimevar.OpenVariable, constantvar registers for the scheme "constant".
 // For more details on the URL format, see URLOpener.
-// See https://github.com/sraphs/gdk/concepts/urls/ for background information.
+// See https://sraphs.github.io/gdk/concepts/urls/ for background information.
 //
 // # As
 //

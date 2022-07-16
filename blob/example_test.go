@@ -133,7 +133,7 @@ func Example() {
 
 	// In this example, we'll write a blob and then read it.
 	ctx := context.Background()
-	if err := bucket.WriteAll(ctx, "foo.txt", []byte("Go Cloud Development Kit"), nil); err != nil {
+	if err := bucket.WriteAll(ctx, "foo.txt", []byte("Go Development Kit"), nil); err != nil {
 		log.Fatal(err)
 	}
 	b, err := bucket.ReadAll(ctx, "foo.txt")
@@ -143,7 +143,7 @@ func Example() {
 	fmt.Println(string(b))
 
 	// Output:
-	// Go Cloud Development Kit
+	// Go Development Kit
 }
 
 func ExampleBucket_ErrorAs() {
@@ -185,7 +185,7 @@ func ExampleBucket_List() {
 	// Create some blob objects for listing: "foo[0..4].txt".
 	ctx := context.Background()
 	for i := 0; i < 5; i++ {
-		if err := bucket.WriteAll(ctx, fmt.Sprintf("foo%d.txt", i), []byte("Go Cloud Development Kit"), nil); err != nil {
+		if err := bucket.WriteAll(ctx, fmt.Sprintf("foo%d.txt", i), []byte("Go Development Kit"), nil); err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -234,7 +234,7 @@ func ExampleBucket_List_withDelimiter() {
 		"dir2/c.txt",
 		"d.txt",
 	} {
-		if err := bucket.WriteAll(ctx, key, []byte("Go Cloud Development Kit"), nil); err != nil {
+		if err := bucket.WriteAll(ctx, key, []byte("Go Development Kit"), nil); err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -291,7 +291,7 @@ func ExampleBucket_ListPage() {
 	// Create some blob objects for listing: "foo[0..7].txt".
 	ctx := context.Background()
 	for i := 0; i < 8; i++ {
-		if err := bucket.WriteAll(ctx, fmt.Sprintf("foo%d.txt", i), []byte("Go Cloud Development Kit"), nil); err != nil {
+		if err := bucket.WriteAll(ctx, fmt.Sprintf("foo%d.txt", i), []byte("Go Development Kit"), nil); err != nil {
 			log.Fatal(err)
 		}
 	}

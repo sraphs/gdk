@@ -21,7 +21,7 @@ func ExampleOpenTopic() {
 	}
 	defer natsConn.Close()
 
-	topic, err := natspubsub.OpenTopic(natsConn, "example.mysubject", nil)
+	topic, err := natspubsub.OpenTopic(natsConn, "example.my-subject", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,7 +41,7 @@ func ExampleOpenSubscription() {
 
 	subscription, err := natspubsub.OpenSubscription(
 		natsConn,
-		"example.mysubject",
+		"example.my-subject",
 		nil)
 	if err != nil {
 		log.Fatal(err)
@@ -62,7 +62,7 @@ func ExampleOpenQueueSubscription() {
 
 	subscription, err := natspubsub.OpenSubscription(
 		natsConn,
-		"example.mysubject",
+		"example.my-subject",
 		&natspubsub.SubscriptionOptions{Queue: "queue1"})
 	if err != nil {
 		log.Fatal(err)
@@ -78,8 +78,8 @@ func Example_openTopicFromURL() {
 
 	// pubsub.OpenTopic creates a *pubsub.Topic from a URL.
 	// This URL will Dial the NATS server at the URL in the environment variable
-	// NATS_SERVER_URL and send messages with subject "example.mysubject".
-	topic, err := pubsub.OpenTopic(ctx, "nats://example.mysubject")
+	// NATS_SERVER_URL and send messages with subject "example.my-subject".
+	topic, err := pubsub.OpenTopic(ctx, "nats://example.my-subject")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -94,8 +94,8 @@ func Example_openSubscriptionFromURL() {
 
 	// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.
 	// This URL will Dial the NATS server at the URL in the environment variable
-	// NATS_SERVER_URL and receive messages with subject "example.mysubject".
-	subscription, err := pubsub.OpenSubscription(ctx, "nats://example.mysubject")
+	// NATS_SERVER_URL and receive messages with subject "example.my-subject".
+	subscription, err := pubsub.OpenSubscription(ctx, "nats://example.my-subject")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -110,9 +110,9 @@ func Example_openQueueSubscriptionFromURL() {
 
 	// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.
 	// This URL will Dial the NATS server at the URL in the environment variable
-	// NATS_SERVER_URL and receive messages with subject "example.mysubject"
+	// NATS_SERVER_URL and receive messages with subject "example.my-subject"
 	// This URL will be parsed and the queue attribute will be used as the Queue parameter when creating the NATS Subscription.
-	subscription, err := pubsub.OpenSubscription(ctx, "nats://example.mysubject?queue=myqueue")
+	subscription, err := pubsub.OpenSubscription(ctx, "nats://example.my-subject?queue=myqueue")
 	if err != nil {
 		log.Fatal(err)
 	}

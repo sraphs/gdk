@@ -11,7 +11,7 @@
 // environment variable "NATS_SERVER_URL".
 // To customize the URL opener, or for more details on the URL format,
 // see URLOpener.
-// See https://github.com/sraphs/gdk/concepts/urls/ for background information.
+// See https://sraphs.github.io/gdk/concepts/urls/ for background information.
 //
 // # Message Delivery Semantics
 //
@@ -121,7 +121,7 @@ func (o *defaultDialer) OpenSubscriptionURL(ctx context.Context, u *url.URL) (*p
 // Scheme is the URL scheme natspubsub registers its URLOpeners under on pubsub.DefaultMux.
 const Scheme = "nats"
 
-// URLOpener opens NATS URLs like "nats://mysubject".
+// URLOpener opens NATS URLs like "nats://my-subject".
 //
 // The URL host+path is used as the subject.
 //

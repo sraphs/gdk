@@ -11,7 +11,7 @@
 // for the scheme "mem".
 // To customize the URL opener, or for more details on the URL format,
 // see URLOpener.
-// See https://github.com/sraphs/gdk/concepts/urls/ for background information.
+// See https://sraphs.github.io/gdk/concepts/urls/ for background information.
 //
 // # Message Delivery Semantics
 //

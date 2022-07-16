@@ -126,7 +126,7 @@ func (k *Keeper) Close() error {
 }
 
 // ErrorAs converts i to driver-specific types. See
-// https://github.com/sraphs/gdk/concepts/as/ for background information and the
+// https://sraphs.github.io/gdk/concepts/as/ for background information and the
 // driver package documentation for the specific types supported for
 // that driver.
 //
@@ -158,7 +158,7 @@ type KeeperURLOpener interface {
 // URLMux is a URL opener multiplexer. It matches the scheme of the URLs
 // against a set of registered schemes and calls the opener that matches the
 // URL's scheme.
-// See https://github.com/sraphs/gdk/concepts/urls/ for more information.
+// See https://sraphs.github.io/gdk/concepts/urls/ for more information.
 //
 // The zero value is a multiplexer with no registered schemes.
 type URLMux struct {
@@ -208,7 +208,7 @@ func DefaultURLMux() *URLMux {
 
 // OpenKeeper opens the Keeper identified by the URL given.
 // See the URLOpener documentation in driver subpackages for
-// details on supported URL formats, and https://github.com/sraphs/gdk/concepts/urls
+// details on supported URL formats, and https://sraphs.github.io/gdk/concepts/urls
 // for more information.
 func OpenKeeper(ctx context.Context, urlstr string) (*Keeper, error) {
 	return defaultURLMux.OpenKeeper(ctx, urlstr)

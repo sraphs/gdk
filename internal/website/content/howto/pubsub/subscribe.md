@@ -201,3 +201,50 @@ redelivered.
 
 [`mempubsub.NewSubscription` function]: https://godoc.org/github.com/sraphs/gdk/pubsub/mempubsub#NewSubscription
 [publish-mem-ctor]: {{< ref "./publish.md#mem-ctor" >}}
+
+
+
+### Redis {#redis}
+
+The GDK can publish to a [Redis][] subject. A Redis URL only includes the
+subject name. The Redis server is discovered from the `REDIS_SERVER_URL`
+environment variable (which is something like `redis://redis.example.com`).
+
+{{< goexample "github.com/sraphs/gdk/pubsub/redispubsub.Example_openSubscriptionFromURL" >}}
+
+Because Redis does not natively support metadata, messages sent to Redis will
+be encoded with [gob][].
+
+[gob]: https://golang.org/pkg/encoding/gob/
+[Redis]: https://redis.io/
+
+#### Redis Constructor {#redis-ctor}
+
+The [`redispubsub.OpenSubscription`][] constructor opens a Redis subject as a topic. You
+must first create an [`*redis.Client`][] to your Redis instance.
+
+{{< goexample "github.com/sraphs/gdk/pubsub/redispubsub.ExampleOpenSubscription" >}}
+
+[`*redis.Client`]: https://godoc.org/github.com/go-redis/redis/v8#Client
+[`redispubsub.OpenSubscription`]: https://godoc.org/github.com/sraphs/gdk/pubsub/redispubsub#OpenSubscription
+
+
+### Pulsar {#pulsar}
+
+The GDK can publish to a [Pulsar][] subject. A Pulsar URL only includes the
+subject name. The Pulsar server is discovered from the `Pulsar_SERVER_URL`
+environment variable (which is something like `pulsar://localhost:6650`).
+
+{{< goexample "github.com/sraphs/gdk/pubsub/pulsarpubsub.Example_openSubscriptionFromURL" >}}
+
+[Pulsar]: https://pulsar.apache.org/
+
+#### Pulsar Constructor {#pulsar-ctor}
+
+The [`pulsarpubsub.OpenSubscription`][] constructor opens a Pulsar topic to publish
+messages to.
+
+{{< goexample "github.com/sraphs/gdk/pubsub/pulsarpubsub.ExampleOpenSubscription" >}}
+
+[`pulsarpubsub.OpenSubscription`]: https://godoc.org/github.com/sraphs/gdk/pubsub/pulsarpubsub#OpenSubscription
+[`pulsarpubsub.MinimalConfig`]: https://godoc.org/github.com/sraphs/gdk/pubsub/pulsarpubsub#MinimalConfig

@@ -55,7 +55,7 @@ type Snapshot struct {
 }
 
 // As converts i to driver-specific types.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information, the "As"
+// See https://sraphs.github.io/gdk/concepts/as/ for background information, the "As"
 // examples in this package for examples, and the driver package
 // documentation for the specific types supported for that driver.
 func (s *Snapshot) As(i interface{}) bool {
@@ -315,7 +315,7 @@ func wrapError(w driver.Watcher, err error) error {
 // ErrorAs converts err to driver-specific types.
 // ErrorAs panics if i is nil or not a pointer.
 // ErrorAs returns false if err == nil.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 func (c *Variable) ErrorAs(err error, i interface{}) bool {
 	return gdkerr.ErrorAs(err, i, c.dw.ErrorAs)
 }
@@ -332,7 +332,7 @@ type VariableURLOpener interface {
 // URLMux is a URL opener multiplexer. It matches the scheme of the URLs
 // against a set of registered schemes and calls the opener that matches the
 // URL's scheme.
-// See https://github.com/sraphs/gdk/concepts/urls/ for more information.
+// See https://sraphs.github.io/gdk/concepts/urls/ for more information.
 //
 // The zero value is a multiplexer with no registered schemes.
 type URLMux struct {
@@ -382,7 +382,7 @@ func DefaultURLMux() *URLMux {
 
 // OpenVariable opens the variable identified by the URL given.
 // See the URLOpener documentation in driver subpackages for
-// details on supported URL formats, and https://github.com/sraphs/gdk/concepts/urls
+// details on supported URL formats, and https://sraphs.github.io/gdk/concepts/urls
 // for more information.
 func OpenVariable(ctx context.Context, urlstr string) (*Variable, error) {
 	return defaultURLMux.OpenVariable(ctx, urlstr)

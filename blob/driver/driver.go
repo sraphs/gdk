@@ -220,12 +220,12 @@ type Bucket interface {
 	ErrorCode(error) gdkerr.ErrorCode
 
 	// As converts i to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	As(i interface{}) bool
 
 	// ErrorAs allows drivers to expose driver-specific types for returned
 	// errors.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	ErrorAs(error, interface{}) bool
 
 	// Attributes returns attributes for the blob. If the specified object does
@@ -327,7 +327,7 @@ type SignedURLOptions struct {
 	// BeforeSign is a callback that will be called before each call to the
 	// the underlying service's sign functionality.
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	BeforeSign func(asFunc func(interface{}) bool) error
 }
 

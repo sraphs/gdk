@@ -206,7 +206,7 @@ func (r *Reader) Size() int64 {
 }
 
 // As converts i to driver-specific types.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information, the "As"
+// See https://sraphs.github.io/gdk/concepts/as/ for background information, the "As"
 // examples in this package for examples, and the driver package
 // documentation for the specific types supported for that driver.
 func (r *Reader) As(i interface{}) bool {
@@ -292,7 +292,7 @@ type Attributes struct {
 }
 
 // As converts i to driver-specific types.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information, the "As"
+// See https://sraphs.github.io/gdk/concepts/as/ for background information, the "As"
 // examples in this package for examples, and the driver package
 // documentation for the specific types supported for that driver.
 func (a *Attributes) As(i interface{}) bool {
@@ -467,7 +467,7 @@ type ListOptions struct {
 	// BeforeList is a callback that will be called before each call to the
 	// the underlying service's list functionality.
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	BeforeList func(asFunc func(interface{}) bool) error
 }
 
@@ -539,7 +539,7 @@ type ListObject struct {
 }
 
 // As converts i to driver-specific types.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information, the "As"
+// See https://sraphs.github.io/gdk/concepts/as/ for background information, the "As"
 // examples in this package for examples, and the driver package
 // documentation for the specific types supported for that driver.
 func (o *ListObject) As(i interface{}) bool {
@@ -610,7 +610,7 @@ func newBucket(b driver.Bucket) *Bucket {
 }
 
 // As converts i to driver-specific types.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information, the "As"
+// See https://sraphs.github.io/gdk/concepts/as/ for background information, the "As"
 // examples in this package for examples, and the driver package
 // documentation for the specific types supported for that driver.
 func (b *Bucket) As(i interface{}) bool {
@@ -623,7 +623,7 @@ func (b *Bucket) As(i interface{}) bool {
 // ErrorAs converts err to driver-specific types.
 // ErrorAs panics if i is nil or not a pointer.
 // ErrorAs returns false if err == nil.
-// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 func (b *Bucket) ErrorAs(err error, i interface{}) bool {
 	return gdkerr.ErrorAs(err, i, b.b.ErrorAs)
 }
@@ -1199,7 +1199,7 @@ type SignedURLOptions struct {
 	// BeforeSign is a callback that will be called before each call to the
 	// the underlying service's sign functionality.
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	BeforeSign func(asFunc func(interface{}) bool) error
 }
 
@@ -1213,7 +1213,7 @@ type ReaderOptions struct {
 	// getting called again with a different underlying provider-specific reader..
 	//
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	BeforeRead func(asFunc func(interface{}) bool) error
 }
 
@@ -1281,7 +1281,7 @@ type WriterOptions struct {
 	// sending an upload request.
 	//
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	BeforeWrite func(asFunc func(interface{}) bool) error
 }
 
@@ -1291,7 +1291,7 @@ type CopyOptions struct {
 	// initiated.
 	//
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	BeforeCopy func(asFunc func(interface{}) bool) error
 }
 
@@ -1307,7 +1307,7 @@ type BucketURLOpener interface {
 // URLMux is a URL opener multiplexer. It matches the scheme of the URLs
 // against a set of registered schemes and calls the opener that matches the
 // URL's scheme.
-// See https://github.com/sraphs/gdk/concepts/urls/ for more information.
+// See https://sraphs.github.io/gdk/concepts/urls/ for more information.
 //
 // The zero value is a multiplexer with no registered schemes.
 type URLMux struct {
@@ -1383,7 +1383,7 @@ func DefaultURLMux() *URLMux {
 // OpenBucket opens the bucket identified by the URL given.
 //
 // See the URLOpener documentation in driver subpackages for
-// details on supported URL formats, and https://github.com/sraphs/gdk/concepts/urls/
+// details on supported URL formats, and https://sraphs.github.io/gdk/concepts/urls/
 // for more information.
 //
 // In addition to driver-specific query parameters, OpenBucket supports

@@ -5,6 +5,7 @@ use (
 	./internal/website
 	./pubsub/kafkapubsub
 	./pubsub/natspubsub
+	./pubsub/pulsarpubsub
 	./pubsub/rabbitpubsub
 	./runtimevar/etcdvar
 	./secrets/hashivault

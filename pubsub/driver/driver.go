@@ -50,7 +50,7 @@ type Message struct {
 	// The callback must be called exactly once, before the message is sent.
 	//
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	BeforeSend func(asFunc func(interface{}) bool) error
 
 	// AfterSend is a callback used when sending a message. It should remain
@@ -60,7 +60,7 @@ type Message struct {
 	// If Send returns an error, AfterSend will not be called.
 	//
 	// asFunc converts its argument to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	AfterSend func(asFunc func(interface{}) bool) error
 }
 
@@ -102,11 +102,11 @@ type Topic interface {
 	IsRetryable(err error) bool
 
 	// As allows drivers to expose driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	As(i interface{}) bool
 
 	// ErrorAs allows drivers to expose driver-specific types for errors.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	ErrorAs(error, interface{}) bool
 
 	// ErrorCode should return a code that describes the error, which was returned by
@@ -189,11 +189,11 @@ type Subscription interface {
 	IsRetryable(err error) bool
 
 	// As converts i to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	As(i interface{}) bool
 
 	// ErrorAs allows drivers to expose driver-specific types for errors.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	ErrorAs(error, interface{}) bool
 
 	// ErrorCode should return a code that describes the error, which was returned by

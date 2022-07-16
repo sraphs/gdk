@@ -97,27 +97,43 @@
 	},
 	"github.com/sraphs/gdk/pubsub/natspubsub.ExampleOpenQueueSubscription": {
 		"imports": "import (\n\t\"context\"\n\n\t\"github.com/nats-io/nats.go\"\n\t\"github.com/sraphs/gdk/pubsub/natspubsub\"\n)",
-		"code": "natsConn, err := nats.Connect(\"nats://nats.example.com\")\nif err != nil {\n\treturn err\n}\ndefer natsConn.Close()\n\nsubscription, err := natspubsub.OpenSubscription(\n\tnatsConn,\n\t\"example.mysubject\",\n\t\u0026natspubsub.SubscriptionOptions{Queue: \"queue1\"})\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
+		"code": "natsConn, err := nats.Connect(\"nats://nats.example.com\")\nif err != nil {\n\treturn err\n}\ndefer natsConn.Close()\n\nsubscription, err := natspubsub.OpenSubscription(\n\tnatsConn,\n\t\"example.my-subject\",\n\t\u0026natspubsub.SubscriptionOptions{Queue: \"queue1\"})\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
 	},
 	"github.com/sraphs/gdk/pubsub/natspubsub.ExampleOpenSubscription": {
 		"imports": "import (\n\t\"context\"\n\n\t\"github.com/nats-io/nats.go\"\n\t\"github.com/sraphs/gdk/pubsub/natspubsub\"\n)",
-		"code": "natsConn, err := nats.Connect(\"nats://nats.example.com\")\nif err != nil {\n\treturn err\n}\ndefer natsConn.Close()\n\nsubscription, err := natspubsub.OpenSubscription(\n\tnatsConn,\n\t\"example.mysubject\",\n\tnil)\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
+		"code": "natsConn, err := nats.Connect(\"nats://nats.example.com\")\nif err != nil {\n\treturn err\n}\ndefer natsConn.Close()\n\nsubscription, err := natspubsub.OpenSubscription(\n\tnatsConn,\n\t\"example.my-subject\",\n\tnil)\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
 	},
 	"github.com/sraphs/gdk/pubsub/natspubsub.ExampleOpenTopic": {
 		"imports": "import (\n\t\"context\"\n\n\t\"github.com/nats-io/nats.go\"\n\t\"github.com/sraphs/gdk/pubsub/natspubsub\"\n)",
-		"code": "natsConn, err := nats.Connect(\"nats://nats.example.com\")\nif err != nil {\n\treturn err\n}\ndefer natsConn.Close()\n\ntopic, err := natspubsub.OpenTopic(natsConn, \"example.mysubject\", nil)\nif err != nil {\n\treturn err\n}\ndefer topic.Shutdown(ctx)"
+		"code": "natsConn, err := nats.Connect(\"nats://nats.example.com\")\nif err != nil {\n\treturn err\n}\ndefer natsConn.Close()\n\ntopic, err := natspubsub.OpenTopic(natsConn, \"example.my-subject\", nil)\nif err != nil {\n\treturn err\n}\ndefer topic.Shutdown(ctx)"
 	},
 	"github.com/sraphs/gdk/pubsub/natspubsub.Example_openQueueSubscriptionFromURL": {
 		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/pubsub\"\n\t_ \"github.com/sraphs/gdk/pubsub/natspubsub\"\n)",
-		"code": "// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.\n// This URL will Dial the NATS server at the URL in the environment variable\n// NATS_SERVER_URL and receive messages with subject \"example.mysubject\"\n// This URL will be parsed and the queue attribute will be used as the Queue parameter when creating the NATS Subscription.\nsubscription, err := pubsub.OpenSubscription(ctx, \"nats://example.mysubject?queue=myqueue\")\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
+		"code": "// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.\n// This URL will Dial the NATS server at the URL in the environment variable\n// NATS_SERVER_URL and receive messages with subject \"example.my-subject\"\n// This URL will be parsed and the queue attribute will be used as the Queue parameter when creating the NATS Subscription.\nsubscription, err := pubsub.OpenSubscription(ctx, \"nats://example.my-subject?queue=myqueue\")\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
 	},
 	"github.com/sraphs/gdk/pubsub/natspubsub.Example_openSubscriptionFromURL": {
 		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/pubsub\"\n\t_ \"github.com/sraphs/gdk/pubsub/natspubsub\"\n)",
-		"code": "// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.\n// This URL will Dial the NATS server at the URL in the environment variable\n// NATS_SERVER_URL and receive messages with subject \"example.mysubject\".\nsubscription, err := pubsub.OpenSubscription(ctx, \"nats://example.mysubject\")\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
+		"code": "// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.\n// This URL will Dial the NATS server at the URL in the environment variable\n// NATS_SERVER_URL and receive messages with subject \"example.my-subject\".\nsubscription, err := pubsub.OpenSubscription(ctx, \"nats://example.my-subject\")\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
 	},
 	"github.com/sraphs/gdk/pubsub/natspubsub.Example_openTopicFromURL": {
 		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/pubsub\"\n\t_ \"github.com/sraphs/gdk/pubsub/natspubsub\"\n)",
-		"code": "// pubsub.OpenTopic creates a *pubsub.Topic from a URL.\n// This URL will Dial the NATS server at the URL in the environment variable\n// NATS_SERVER_URL and send messages with subject \"example.mysubject\".\ntopic, err := pubsub.OpenTopic(ctx, \"nats://example.mysubject\")\nif err != nil {\n\treturn err\n}\ndefer topic.Shutdown(ctx)"
+		"code": "// pubsub.OpenTopic creates a *pubsub.Topic from a URL.\n// This URL will Dial the NATS server at the URL in the environment variable\n// NATS_SERVER_URL and send messages with subject \"example.my-subject\".\ntopic, err := pubsub.OpenTopic(ctx, \"nats://example.my-subject\")\nif err != nil {\n\treturn err\n}\ndefer topic.Shutdown(ctx)"
+	},
+	"github.com/sraphs/gdk/pubsub/pulsarpubsub.ExampleOpenSubscription": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/apache/pulsar-client-go/pulsar\"\n\t\"github.com/sraphs/gdk/pubsub/pulsarpubsub\"\n)",
+		"code": "localPulsarURL := \"pulsar://localhost:6650\"\nconfig := pulsarpubsub.MinimalConfig(localPulsarURL)\nclient, err := pulsar.NewClient(config)\nif err != nil {\n\treturn err\n}\n// Construct a *pubsub.Subscription, use the SubscriptionName \"my-sub\"\n// and receiving messages from \"my-topic\".\nsubscription, err := pulsarpubsub.OpenSubscription(client, \u0026pulsarpubsub.SubscriptionOptions{\n\tConsumerOptions: pulsar.ConsumerOptions{\n\t\tTopic:            \"my-topic\",\n\t\tSubscriptionName: \"my-sub\",\n\t},\n\tKeyName: \"\",\n})\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
+	},
+	"github.com/sraphs/gdk/pubsub/pulsarpubsub.ExampleOpenTopic": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/apache/pulsar-client-go/pulsar\"\n\t\"github.com/sraphs/gdk/pubsub/pulsarpubsub\"\n)",
+		"code": "localPulsarURL := \"pulsar://localhost:6650\"\nconfig := pulsarpubsub.MinimalConfig(localPulsarURL)\nclient, err := pulsar.NewClient(config)\nif err != nil {\n\treturn err\n}\n\n// Construct a *pubsub.Topic.\ntopic, err := pulsarpubsub.OpenTopic(client, \u0026pulsarpubsub.TopicOptions{\n\tProducerOptions: pulsar.ProducerOptions{\n\t\tTopic: \"my-topic\",\n\t},\n\tKeyName: \"\",\n})\nif err != nil {\n\treturn err\n}\ndefer topic.Shutdown(ctx)"
+	},
+	"github.com/sraphs/gdk/pubsub/pulsarpubsub.Example_openSubscriptionFromURL": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/pubsub\"\n\t_ \"github.com/sraphs/gdk/pubsub/pulsarpubsub\"\n)",
+		"code": "// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.\n// The host + path are used as the consumer group name.\n// The \"topic\" query parameter sets one or more topics to subscribe to.\n// The set of brokers must be in an environment variable KAFKA_BROKERS.\nsubscription, err := pubsub.OpenSubscription(ctx,\n\t\"pulsar://my-sub?topic=my-topic\")\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
+	},
+	"github.com/sraphs/gdk/pubsub/pulsarpubsub.Example_openTopicFromURL": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/pubsub\"\n\t_ \"github.com/sraphs/gdk/pubsub/pulsarpubsub\"\n)",
+		"code": "// pubsub.OpenTopic creates a *pubsub.Topic from a URL.\n// The host + path are the topic name to send to.\n// The set of brokers must be in an environment variable KAFKA_BROKERS.\ntopic, err := pubsub.OpenTopic(ctx, \"pulsar://my-topic\")\nif err != nil {\n\treturn err\n}\ndefer topic.Shutdown(ctx)"
 	},
 	"github.com/sraphs/gdk/pubsub/rabbitpubsub.ExampleOpenSubscription": {
 		"imports": "import (\n\t\"context\"\n\n\tamqp \"github.com/rabbitmq/amqp091-go\"\n\t\"github.com/sraphs/gdk/pubsub/rabbitpubsub\"\n)",
@@ -134,6 +150,22 @@
 	"github.com/sraphs/gdk/pubsub/rabbitpubsub.Example_openTopicFromURL": {
 		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/pubsub\"\n\t_ \"github.com/sraphs/gdk/pubsub/rabbitpubsub\"\n)",
 		"code": "// pubsub.OpenTopic creates a *pubsub.Topic from a URL.\n// This URL will Dial the RabbitMQ server at the URL in the environment\n// variable RABBIT_SERVER_URL and open the exchange \"myexchange\".\ntopic, err := pubsub.OpenTopic(ctx, \"rabbit://myexchange\")\nif err != nil {\n\treturn err\n}\ndefer topic.Shutdown(ctx)"
+	},
+	"github.com/sraphs/gdk/pubsub/redispubsub.ExampleOpenSubscription": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/go-redis/redis/v8\"\n\t\"github.com/sraphs/gdk/pubsub/redispubsub\"\n)",
+		"code": "opt, err := redis.ParseURL(\"redis://localhost:6379\")\nif err != nil {\n\treturn err\n}\nclient := redis.NewClient(opt)\ndefer client.Close()\n\nsubscription, err := redispubsub.OpenSubscription(client, \"example.my-topic\", nil)\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
+	},
+	"github.com/sraphs/gdk/pubsub/redispubsub.ExampleOpenTopic": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/go-redis/redis/v8\"\n\t\"github.com/sraphs/gdk/pubsub/redispubsub\"\n)",
+		"code": "opt, err := redis.ParseURL(\"redis://localhost:6379\")\nif err != nil {\n\treturn err\n}\nclient := redis.NewClient(opt)\ndefer client.Close()\n\ntopic, err := redispubsub.OpenTopic(client, \"example.my-topic\", nil)\nif err != nil {\n\treturn err\n}\ndefer topic.Shutdown(ctx)"
+	},
+	"github.com/sraphs/gdk/pubsub/redispubsub.Example_openSubscriptionFromURL": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/pubsub\"\n\t_ \"github.com/sraphs/gdk/pubsub/redispubsub\"\n)",
+		"code": "// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.\n// This URL will Dial the Redis server at the URL in the environment variable\n// REDIS_SERVER_URL and receive messages with subject \"example.my-topic\".\nsubscription, err := pubsub.OpenSubscription(ctx, \"redis://example.my-topic\")\nif err != nil {\n\treturn err\n}\ndefer subscription.Shutdown(ctx)"
+	},
+	"github.com/sraphs/gdk/pubsub/redispubsub.Example_openTopicFromURL": {
+		"imports": "import (\n\t\"context\"\n\n\t\"github.com/sraphs/gdk/pubsub\"\n\t_ \"github.com/sraphs/gdk/pubsub/redispubsub\"\n)",
+		"code": "// pubsub.OpenTopic creates a *pubsub.Topic from a URL.\n// This URL will Dial the Redis server at the URL in the environment variable\n// REDIS_SERVER_URL and send messages with subject \"example.my-topic\".\ntopic, err := pubsub.OpenTopic(ctx, \"redis://example.my-topic\")\nif err != nil {\n\treturn err\n}\ndefer topic.Shutdown(ctx)"
 	},
 	"github.com/sraphs/gdk/runtimevar.ExampleDecryptDecode": {
 		"imports": "import (\n\t\"github.com/sraphs/gdk/runtimevar\"\n\t\"github.com/sraphs/gdk/secrets\"\n)",

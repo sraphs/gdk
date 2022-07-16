@@ -29,7 +29,7 @@ type State interface {
 	UpdateTime() time.Time
 
 	// As converts i to driver-specific types.
-	// See https://github.com/sraphs/gdk/concepts/as/ for background information.
+	// See https://sraphs.github.io/gdk/concepts/as/ for background information.
 	As(interface{}) bool
 }
 
