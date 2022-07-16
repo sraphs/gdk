@@ -25,7 +25,6 @@ CDK makes possible.
 
 [Developers and Operators]: https://github.com/sraphs/gdk/blob/master/internal/docs/design.md#developers-and-operators
 [separation of concerns]: https://en.wikipedia.org/wiki/Separation_of_concerns
-[uploader tutorial]: {{< ref "/tutorials/cli-uploader.md" >}}
 
 ## Portable Types and Drivers
 

@@ -158,12 +158,6 @@ You can delete blobs using the `Bucket.Delete` method.
 
 {{< goexample src="github.com/sraphs/gdk/blob.ExampleBucket_Delete" imports="0" >}}
 
-## Other Usage Samples
-
-* [CLI Tutorial]({{< ref "/tutorials/cli-uploader.md" >}})
-* [CLI Sample](https://github.com/sraphs/gdk/tree/master/samples/gocdk-blob)
-* [Guestbook sample](https://github.com/sraphs/gdk/tutorials/guestbook/)
-* [blob package examples](https://godoc.org/github.com/sraphs/gdk/blob#pkg-examples)
 
 ## Supported Storage Services {#services}
 

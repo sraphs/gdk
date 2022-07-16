@@ -33,11 +33,6 @@ To start using the Go CDK, install it using `go get`:
 go get github.com/sraphs/gdk
 ```
 
-Then follow the [Go CDK tutorial][]. Links to additional documentation and
-samples are available below and in the site navigation bar.
-
-[Go CDK tutorial]: {{< ref "/tutorials/cli-uploader.md" >}}
-
 ## Portable Cloud APIs in Go
 
 At this time, the Go CDK focuses on a set of portable APIs for cloud
