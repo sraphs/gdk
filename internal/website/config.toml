@@ -1,7 +1,7 @@
-baseURL = "https://github.com/sraphs/gdk/"
+baseURL = "https://gocloud.dev/"
 languageCode = "en-us"
-title = "Go CDK"
-copyright = "Copyright © 2018–2019 The Go Cloud Development Kit Authors"
+title = "Go Development Kit"
+copyright = "Copyright © 2022-2022 The Go Development Kit Authors"
 pygmentsUseClasses = true
 pygmentsCodefences = true
 

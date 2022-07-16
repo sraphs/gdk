@@ -196,17 +196,11 @@ Full details about acceptable URLs can be found under the API reference for
 
 #### S3 Constructor {#s3-ctor}
 
-The [`s3blob.OpenBucket`][] constructor opens an [S3][] bucket. You must first
-create an [AWS session][] with the same region as your bucket:
+The [`s3blob.OpenBucket`][] constructor opens an [S3][] bucket:
 
 {{< goexample "github.com/sraphs/gdk/blob/s3blob.ExampleOpenBucket" >}}
 
-[`s3blob.OpenBucketV2`][] is similar but uses the AWS SDK V2.
-
-{{< goexample "github.com/sraphs/gdk/blob/s3blob.ExampleOpenBucketV2" >}}
-
 [`s3blob.OpenBucket`]: https://godoc.org/github.com/sraphs/gdk/blob/s3blob#OpenBucket
-[AWS session]: https://docs.aws.amazon.com/sdk-for-go/api/aws/session/
 [S3]: https://aws.amazon.com/s3/
 
 #### S3-Compatible Servers {#s3-compatible}
