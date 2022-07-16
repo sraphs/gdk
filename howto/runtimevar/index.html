@@ -1,0 +1,150 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=generator content="Hugo 0.101.0"><meta name=viewport content="width=device-width,initial-scale=1"><title>Runtime Configuration &#183; Go Development Kit</title><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Source+Code+Pro|Work+Sans:400,700"><link type=text/css rel=stylesheet href=/css/syntax.css><link type=text/css rel=stylesheet href=/css/style.css><link rel="shortcut icon" href=/favicon-32x32.png></head><body><div class=PageLayout><header class=PageHeader><a href=https://gocloud.dev/><h1 class=PageLogo><img class=PageLogo-image src=/go-cdk-logo-white.png alt="Go Development Kit"></h1></a></header><main class=MainContent><div class=MainContent-bounds><h1>Runtime Configuration</h1><nav class=PageTOC><div class=PageTOC-heading>In this article</div><nav id=TableOfContents><ul><li><a href=#opening>Opening a Variable</a></li><li><a href=#using>Using a Variable</a><ul><li><a href=#latest>Latest</a></li><li><a href=#watch>Watch</a></li></ul></li><li><a href=#other-usage-samples>Other Usage Samples</a></li><li><a href=#services>Supported Services</a><ul><li><a href=#etcd>etcd</a></li><li><a href=#http>HTTP</a></li><li><a href=#blob>Blob</a></li><li><a href=#local>Local</a></li></ul></li></ul></nav></nav><p>The <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar><code>runtimevar</code> package</a> provides an easy and portable way to watch runtime
+configuration variables. This guide shows how to work with runtime configuration
+variables using the Go CDK.</p><p>Subpackages contain driver implementations of runtimevar for various services,
+including Cloud and on-prem solutions. You can develop your application locally
+using <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar/filevar><code>filevar</code></a> or <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar/constantvar><code>constantvar</code></a>, then deploy it to multiple Cloud
+providers with minimal initialization reconfiguration.</p><h2 id=opening>Opening a Variable<a class=anchor href=#opening aria-label="Link to Section">🔗</a></h2><p>The first step in watching a variable is to instantiate a portable
+<a href=https://godoc.org/github.com/sraphs/gdk/runtimevar#Variable><code>*runtimevar.Variable</code></a> for your service.</p><p>The easiest way to do so is to use <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar#OpenVariable><code>runtimevar.OpenVariable</code></a> and a service-specific URL pointing
+to the variable, making sure you <a href=https://golang.org/doc/effective_go.html#blank_import>&ldquo;blank import&rdquo;</a> the driver package to link
+it in.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/runtimevar&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span> <span class=s>&#34;github.com/sraphs/gdk/runtimevar/&lt;driver&gt;&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>
+</span></span><span class=line><span class=cl><span class=nx>v</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>runtimevar</span><span class=p>.</span><span class=nf>OpenVariable</span><span class=p>(</span><span class=nx>context</span><span class=p>.</span><span class=nf>Background</span><span class=p>(),</span> <span class=s>&#34;&lt;driver-url&gt;&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;could not open variable: %v&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>v</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=c1>// v is a *runtimevar.Variable; see usage below
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=o>...</span>
+</span></span></code></pre></div><p>See <a href=https://gocloud.dev/concepts/urls/>Concepts: URLs</a> for general background and the <a href=#services>guide below</a>
+for URL usage for each supported service.</p><p>Alternatively, if you need fine-grained control
+over the connection settings, you can call the constructor function in the
+driver package directly (like <code>etcdvar.OpenVariable</code>).</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=s>&#34;github.com/sraphs/gdk/runtimevar/&lt;driver&gt;&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>
+</span></span><span class=line><span class=cl><span class=nx>v</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=p>&lt;</span><span class=nx>driver</span><span class=p>&gt;.</span><span class=nf>OpenVariable</span><span class=p>(</span><span class=o>...</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>
+</span></span></code></pre></div><p>You may find the <a href=http://github.com/google/wire><code>wire</code> package</a> useful for managing your initialization code
+when switching between different backing services.</p><p>See the <a href=#services>guide below</a> for constructor usage for each supported service.</p><p>When opening the variable, you can provide a <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar#Decoder>decoder</a> parameter (either as a
+<a href=https://godoc.org/github.com/sraphs/gdk/runtimevar#DecoderByName>query parameter</a> for URLs, or explicitly to the constructor) to specify
+whether the raw value stored in the variable is interpreted as a <code>string</code>, a
+<code>[]byte</code>, or as JSON. Here&rsquo;s an example of using a JSON encoder:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Config is the sample config struct we&#39;re going to parse our JSON into.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Config</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Host</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Port</span> <span class=kt>int</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// A sample JSON config that will decode into Config.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>const</span> <span class=nx>jsonConfig</span> <span class=p>=</span> <span class=s>`{&#34;Host&#34;: &#34;github.com/sraphs/gdk&#34;, &#34;Port&#34;: 8080}`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Construct a Decoder that decodes raw bytes into our config.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>decoder</span> <span class=o>:=</span> <span class=nx>runtimevar</span><span class=p>.</span><span class=nf>NewDecoder</span><span class=p>(</span><span class=nx>Config</span><span class=p>{},</span> <span class=nx>runtimevar</span><span class=p>.</span><span class=nx>JSONDecode</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Next, a construct a *Variable using a constructor or URL opener.
+</span></span></span><span class=line><span class=cl><span class=c1>// This example uses constantvar.
+</span></span></span><span class=line><span class=cl><span class=c1>// If you&#39;re using a URL opener, you can&#39;t decode JSON into a struct, but
+</span></span></span><span class=line><span class=cl><span class=c1>// you can use the query parameter &#34;decoder=jsonmap&#34; to decode into a map.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>v</span> <span class=o>:=</span> <span class=nx>constantvar</span><span class=p>.</span><span class=nf>NewBytes</span><span class=p>([]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>jsonConfig</span><span class=p>),</span> <span class=nx>decoder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>v</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=c1>// snapshot.Value will be of type Config.
+</span></span></span></code></pre></div><h2 id=using>Using a Variable<a class=anchor href=#using aria-label="Link to Section">🔗</a></h2><p>Once you have opened a <code>runtimevar.Variable</code> for the provider you want, you can
+use it portably.</p><h3 id=latest>Latest<a class=anchor href=#latest aria-label="Link to Section">🔗</a></h3><p>The easiest way to a <code>Variable</code> is to use the <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar#Variable.Latest><code>Variable.Latest</code></a> method. It
+returns the latest good <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar#Snapshot><code>Snapshot</code></a> of the variable value, blocking if no
+good value has <em>ever</em> been detected. The dynamic type of <code>Snapshot.Value</code>
+depends on the decoder you provided when creating the <code>Variable</code>.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>snapshot</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>v</span><span class=p>.</span><span class=nf>Latest</span><span class=p>(</span><span class=nx>context</span><span class=p>.</span><span class=nf>Background</span><span class=p>())</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;Error in retrieving variable: %v&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>To avoid blocking, you can pass an already-<code>Done</code> context. You can also use
+<a href=https://godoc.org/github.com/sraphs/gdk/runtimevar#Variable.CheckHealth><code>Variable.CheckHealth</code></a>, which reports as healthy when <code>Latest</code> will
+return a value without blocking.</p><h3 id=watch>Watch<a class=anchor href=#watch aria-label="Link to Section">🔗</a></h3><p><code>Variable</code> also has a <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar#Variable.Watch><code>Watch</code></a> method for obtaining the value of a variable;
+it has different semantics than <code>Latest</code> and may be useful in some scenarios. We
+recommend starting with <code>Latest</code> as it&rsquo;s conceptually simpler to work with.</p><h2 id=other-usage-samples>Other Usage Samples<a class=anchor href=#other-usage-samples aria-label="Link to Section">🔗</a></h2><ul><li><a href=https://github.com/sraphs/gdk/tree/master/samples/gocdk-runtimevar>CLI Sample</a></li><li><a href=https://github.com/sraphs/gdk/tutorials/guestbook/>Guestbook sample</a></li><li><a href=https://godoc.org/github.com/sraphs/gdk/runtimevar#pkg-examples>runtimevar package examples</a></li></ul><h2 id=services>Supported Services<a class=anchor href=#services aria-label="Link to Section">🔗</a></h2><h3 id=etcd>etcd<a class=anchor href=#etcd aria-label="Link to Section">🔗</a></h3><p><em>NOTE</em>: Support for <code>etcd</code> has been temporarily dropped due to dependency
+issues. See <a href=https://github.com/sraphs/gdk/issues/2914>https://github.com/sraphs/gdk/issues/2914</a>.</p><p>You can use <code>runtimevar.etcd</code> in Go CDK version <code>v0.20.0</code> or earlier.</p><h3 id=http>HTTP<a class=anchor href=#http aria-label="Link to Section">🔗</a></h3><p><code>httpvar</code> supports watching a variable via an HTTP request. Use
+<code>runtimevar.OpenVariable</code> with a regular URL starting with <code>http</code> or <code>https</code>.
+<code>httpvar</code> will periodically make an HTTP <code>GET</code> request to that URL, with the
+<code>decode</code> URL parameter removed (if present).</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/runtimevar&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span> <span class=s>&#34;github.com/sraphs/gdk/runtimevar/httpvar&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// runtimevar.OpenVariable creates a *runtimevar.Variable from a URL.
+</span></span></span><span class=line><span class=cl><span class=c1>// The default opener connects to an etcd server based on the environment
+</span></span></span><span class=line><span class=cl><span class=c1>// variable ETCD_SERVER_URL.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>v</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>runtimevar</span><span class=p>.</span><span class=nf>OpenVariable</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=s>&#34;http://myserver.com/foo.txt?decoder=string&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>v</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span></code></pre></div><h4 id=http-ctor>HTTP Constructor<a class=anchor href=#http-ctor aria-label="Link to Section">🔗</a></h4><p>The <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar/httpvar#OpenVariable><code>httpvar.OpenVariable</code></a> constructor opens a variable with a <code>http.Client</code>
+and a URL.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;net/http&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/runtimevar&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/runtimevar/httpvar&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Create an HTTP.Client
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>httpClient</span> <span class=o>:=</span> <span class=nx>http</span><span class=p>.</span><span class=nx>DefaultClient</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Construct a *runtimevar.Variable that watches the page.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>v</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>httpvar</span><span class=p>.</span><span class=nf>OpenVariable</span><span class=p>(</span><span class=nx>httpClient</span><span class=p>,</span> <span class=s>&#34;http://example.com&#34;</span><span class=p>,</span> <span class=nx>runtimevar</span><span class=p>.</span><span class=nx>StringDecoder</span><span class=p>,</span> <span class=kc>nil</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>v</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span></code></pre></div><h3 id=blob>Blob<a class=anchor href=#blob aria-label="Link to Section">🔗</a></h3><p><code>blobvar</code> supports watching a variable based on the contents of a
+<a href=https://github.com/sraphs/gdk/howto/blob/>Go CDK blob</a>. Set the environment variable <code>BLOBVAR_BUCKET_URL</code> to the URL
+of the bucket, and then use <code>runtimevar.OpenVariable</code> as shown below.
+<code>blobvar</code> will periodically re-fetch the contents of the blob.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/runtimevar&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span> <span class=s>&#34;github.com/sraphs/gdk/runtimevar/blobvar&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// runtimevar.OpenVariable creates a *runtimevar.Variable from a URL.
+</span></span></span><span class=line><span class=cl><span class=c1>// The default opener opens a blob.Bucket via a URL, based on the environment
+</span></span></span><span class=line><span class=cl><span class=c1>// variable BLOBVAR_BUCKET_URL.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>v</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>runtimevar</span><span class=p>.</span><span class=nf>OpenVariable</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=s>&#34;blob://myvar.txt?decoder=string&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>v</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span></code></pre></div><p>You can also use <a href=https://godoc.org/github.com/sraphs/gdk/runtimevar/blobvar#OpenVariable><code>blobvar.OpenVariable</code></a>.</p><h3 id=local>Local<a class=anchor href=#local aria-label="Link to Section">🔗</a></h3><p>You can create an in-memory variable (useful for testing) using <code>constantvar</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/runtimevar&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span> <span class=s>&#34;github.com/sraphs/gdk/runtimevar/constantvar&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// runtimevar.OpenVariable creates a *runtimevar.Variable from a URL.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>v</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>runtimevar</span><span class=p>.</span><span class=nf>OpenVariable</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=s>&#34;constant://?val=hello+world&amp;decoder=string&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>v</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span></code></pre></div><p>Alternatively, you can create a variable based on the contents of a file using
+<code>filevar</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/runtimevar&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span> <span class=s>&#34;github.com/sraphs/gdk/runtimevar/filevar&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// runtimevar.OpenVariable creates a *runtimevar.Variable from a URL.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>v</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>runtimevar</span><span class=p>.</span><span class=nf>OpenVariable</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=s>&#34;file:///path/to/config.txt?decoder=string&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>v</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span></code></pre></div></div></main><nav class=Sidenav><ul class=Sidenav-list><li class=Sidenav-section><a href=/ class=Sidenav-sectionLink>Home</a></li><li class=Sidenav-section><a href=/tutorials/ class=Sidenav-sectionLink>Tutorials</a><ul class=Sidenav-pageList><li class=Sidenav-page><a href=/tutorials/cli-uploader/ class=Sidenav-pageLink>Command-Line Uploader</a></li><li class=Sidenav-page><a href=/tutorials/guestbook/ class=Sidenav-pageLink>Guestbook</a></li><li class=Sidenav-page><a href=/tutorials/order/ class=Sidenav-pageLink>Order Processor</a></li></ul></li><li class=Sidenav-section><a href=/howto/ class=Sidenav-sectionLink>How-To Guides</a><ul class=Sidenav-pageList><li class=Sidenav-page><a href=/howto/blob/ class=Sidenav-pageLink>Blob</a></li><li class=Sidenav-page><a href=/howto/pubsub/ class=Sidenav-pageLink>Pub/Sub</a></li><li class=Sidenav-page><a href=/howto/runtimevar/ class=Sidenav-pageLink>Runtime Configuration</a></li><li class=Sidenav-page><a href=/howto/secrets/ class=Sidenav-pageLink>Secrets</a></li></ul></li><li class=Sidenav-section><a href=/concepts/ class=Sidenav-sectionLink>Concepts</a><ul class=Sidenav-pageList><li class=Sidenav-page><a href=/concepts/structure/ class=Sidenav-pageLink>Structuring Portable Code</a></li><li class=Sidenav-page><a href=/concepts/urls/ class=Sidenav-pageLink>URLs</a></li><li class=Sidenav-page><a href=/concepts/as/ class=Sidenav-pageLink>Using provider-specific APIs</a></li></ul></li></ul></nav><footer class=PageFooter><nav><ul class=FooterLinks><li class=FooterLinks-item><a href=https://github.com/sraphs/gdk/ class=FooterLinks-link>GitHub</a></li><li class=FooterLinks-item><a href=https://github.com/sraphs/gdk/issues class=FooterLinks-link>Contact Team</a></li></ul></nav><p class=PageFooter-paragraph>Copyright © 2022-2022 The Go Development Kit Authors.
+All content released under an <a href=https://github.com/sraphs/gdk/main/LICENSE target=_blank class=PageFooter-link>Apache 2.0 License</a>.</p><p class=PageFooter-paragraph><a href=https://github.com/sraphs/gdk/main/internal/website/content/howto/runtimevar/_index.md class=PageFooter-link>Improve this page</a> on GitHub.</p></footer></div></body></html>

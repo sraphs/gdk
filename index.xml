@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Go CDK on Go Development Kit</title><link>https://gocloud.dev/</link><description>Recent content in Go CDK on Go Development Kit</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Copyright © 2022-2022 The Go Development Kit Authors</copyright><lastBuildDate>Thu, 11 Jul 2019 12:00:00 -0700</lastBuildDate><atom:link href="https://gocloud.dev/index.xml" rel="self" type="application/rss+xml"/><item><title>Structuring Portable Code</title><link>https://gocloud.dev/concepts/structure/</link><pubDate>Mon, 03 Jun 2019 07:34:22 -0700</pubDate><guid>https://gocloud.dev/concepts/structure/</guid><description>&lt;p>The Go CDK&amp;rsquo;s APIs are intentionally structured to make it easier to separate
+your application&amp;rsquo;s core logic from the details of the services it is using.&lt;/p></description></item><item><title>Publish Messages to a Topic</title><link>https://gocloud.dev/howto/pubsub/publish/</link><pubDate>Tue, 26 Mar 2019 09:44:15 -0700</pubDate><guid>https://gocloud.dev/howto/pubsub/publish/</guid><description>&lt;p>Publishing a message to a topic with the Go CDK takes two steps:&lt;/p>
+&lt;ol>
+&lt;li>&lt;a href="#opening">Open a topic&lt;/a> with the Pub/Sub provider of your choice (once per topic).&lt;/li>
+&lt;li>&lt;a href="#sending">Send messages&lt;/a> on the topic.&lt;/li>
+&lt;/ol></description></item><item><title>Tutorial: Command-Line Uploader</title><link>https://gocloud.dev/tutorials/cli-uploader/</link><pubDate>Tue, 19 Mar 2019 18:45:53 -0700</pubDate><guid>https://gocloud.dev/tutorials/cli-uploader/</guid><description>&lt;p>This quickstart will build a command line application called &lt;code>upload&lt;/code> that
+uploads files to blob storage on GCP, AWS, and Azure. Blob storage stores binary
+data under a string key, and is one of the most frequently used cloud
+services.&lt;/p></description></item><item><title>Tutorial: Guestbook Application</title><link>https://gocloud.dev/tutorials/guestbook/</link><pubDate>Wed, 10 Jul 2019 16:58:00 -0700</pubDate><guid>https://gocloud.dev/tutorials/guestbook/</guid><description>&lt;p>In this tutorial, we will deploy an existing Go CDK application called Guestbook
+locally, then on Google Cloud Platform (GCP), Amazon Web Services (AWS), and
+Azure.&lt;/p></description></item><item><title>URLs</title><link>https://gocloud.dev/concepts/urls/</link><pubDate>Mon, 06 May 2019 09:55:09 -0700</pubDate><guid>https://gocloud.dev/concepts/urls/</guid><description>&lt;p>In addition to creating portable types via provider-specific constructors
+(e.g., creating a &lt;code>*blob.Bucket&lt;/code> using &lt;a href="https://godoc.org/github.com/sraphs/gdk/blob/s3blob#OpenBucket">&lt;code>s3blob.OpenBucket&lt;/code>&lt;/a>), many portable types
+can also be created using a URL. The scheme of the URL specifies the provider,
+and each provider implementation has code to convert the URL into the data
+needed to call its constructor. For example, calling
+&lt;code>blob.OpenBucket(&amp;quot;s3blob://my-bucket&amp;quot;)&lt;/code> will return a &lt;code>*blob.Bucket&lt;/code> created
+using &lt;a href="https://godoc.org/github.com/sraphs/gdk/blob/s3blob#OpenBucket">&lt;code>s3blob.OpenBucket&lt;/code>&lt;/a>.&lt;/p></description></item><item><title>Subscribe to Messages from a Topic</title><link>https://gocloud.dev/howto/pubsub/subscribe/</link><pubDate>Tue, 26 Mar 2019 09:44:33 -0700</pubDate><guid>https://gocloud.dev/howto/pubsub/subscribe/</guid><description>&lt;p>Subscribing to receive message from a topic with the Go CDK takes three steps:&lt;/p>
+&lt;ol>
+&lt;li>&lt;a href="#opening">Open a subscription&lt;/a> to a topic with the Pub/Sub service of your choice (once per
+subscription).&lt;/li>
+&lt;li>&lt;a href="#receiving">Receive and acknowledge messages&lt;/a> from the topic. After completing any
+work related to the message, use the Ack method to prevent it from being
+redelivered.&lt;/li>
+&lt;/ol></description></item><item><title>Using provider-specific APIs</title><link>https://gocloud.dev/concepts/as/</link><pubDate>Fri, 10 May 2019 11:17:09 -0700</pubDate><guid>https://gocloud.dev/concepts/as/</guid><description>&lt;p>It is not feasible or desirable for APIs like &lt;code>blob.Bucket&lt;/code> to encompass the
+full functionality of every provider. Rather, we intend to provide a subset
+of the most commonly used functionality. There will be cases where a
+developer wants to access provider-specific functionality, such as unexposed
+APIs or data fields, errors, or options. This can be accomplished using &lt;code>As&lt;/code>
+functions.&lt;/p></description></item><item><title>Order Processor</title><link>https://gocloud.dev/tutorials/order/</link><pubDate>Tue, 09 Jul 2019 10:22:39 -0400</pubDate><guid>https://gocloud.dev/tutorials/order/</guid><description>&lt;p>In this tutorial, we will run a Go CDK application called Order Processor
+on a local machine.&lt;/p></description></item></channel></rss>
