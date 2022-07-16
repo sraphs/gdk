@@ -1,7 +1,7 @@
-baseURL = "https://gocloud.dev/"
 languageCode = "en-us"
 title = "Go Development Kit"
 copyright = "Copyright © 2022-2022 The Go Development Kit Authors"
+relativeURLs = true
 pygmentsUseClasses = true
 pygmentsCodefences = true
 
