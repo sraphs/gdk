@@ -22,9 +22,7 @@ jobs:
           # extended: true
 
       - name: Build
-        run: |
-          internal/website/gatherexamples/run.sh > internal/website/data/examples.json
-          hugo --minify -s internal/website
+        run: hugo --minify -s internal/website
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
