@@ -1,4 +1,4 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=generator content="Hugo 0.101.0"><meta name=viewport content="width=device-width,initial-scale=1"><title>Subscribe to Messages from a Topic &#183; Go Development Kit</title><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Source+Code+Pro|Work+Sans:400,700"><link type=text/css rel=stylesheet href=../../../css/syntax.css><link type=text/css rel=stylesheet href=../../../css/style.css><link rel="shortcut icon" href=../../../favicon-32x32.png></head><body><div class=PageLayout><header class=PageHeader><a href><h1 class=PageLogo><img class=PageLogo-image src=../../../go-cdk-logo-white.png alt="Go Development Kit"></h1></a></header><main class=MainContent><div class=MainContent-bounds><h1>Subscribe to Messages from a Topic</h1><nav class=PageTOC><div class=PageTOC-heading>In this article</div><nav id=TableOfContents><ul><li><a href=#opening>Opening a Subscription</a></li><li><a href=#receiving>Receiving and Acknowledging Messages</a></li><li><a href=#other-usage-samples>Other Usage Samples</a></li><li><a href=#services>Supported Pub/Sub Services</a><ul><li><a href=#rabbitmq>RabbitMQ</a></li><li><a href=#nats>NATS</a></li><li><a href=#kafka>Kafka</a></li><li><a href=#mem>In-Memory</a></li></ul></li></ul></nav></nav><p>Subscribing to receive message from a topic with the GDK takes three steps:</p><ol><li><a href=#opening>Open a subscription</a> to a topic with the Pub/Sub service of your choice (once per
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=generator content="Hugo 0.101.0"><meta name=viewport content="width=device-width,initial-scale=1"><title>Subscribe to Messages from a Topic &#183; Go Development Kit</title><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Source+Code+Pro|Work+Sans:400,700"><link type=text/css rel=stylesheet href=../../../css/syntax.css><link type=text/css rel=stylesheet href=../../../css/style.css><link rel="shortcut icon" href=../../../favicon-32x32.png></head><body><div class=PageLayout><header class=PageHeader><a href><h1 class=PageLogo><img class=PageLogo-image src=../../../go-cdk-logo-white.png alt="Go Development Kit"></h1></a></header><main class=MainContent><div class=MainContent-bounds><h1>Subscribe to Messages from a Topic</h1><nav class=PageTOC><div class=PageTOC-heading>In this article</div><nav id=TableOfContents><ul><li><a href=#opening>Opening a Subscription</a></li><li><a href=#receiving>Receiving and Acknowledging Messages</a></li><li><a href=#other-usage-samples>Other Usage Samples</a></li><li><a href=#services>Supported Pub/Sub Services</a><ul><li><a href=#rabbitmq>RabbitMQ</a></li><li><a href=#nats>NATS</a></li><li><a href=#kafka>Kafka</a></li><li><a href=#mem>In-Memory</a></li><li><a href=#redis>Redis</a></li><li><a href=#pulsar>Pulsar</a></li></ul></li></ul></nav></nav><p>Subscribing to receive message from a topic with the GDK takes three steps:</p><ol><li><a href=#opening>Open a subscription</a> to a topic with the Pub/Sub service of your choice (once per
 subscription).</li><li><a href=#receiving>Receive and acknowledge messages</a> from the topic. After completing any
 work related to the message, use the Ack method to prevent it from being
 redelivered.</li></ol><h2 id=opening>Opening a Subscription<a class=anchor href=#opening aria-label="Link to Section">🔗</a></h2><p>The first step in subscribing to receive messages from a topic is
@@ -125,8 +125,8 @@ environment variable (which is something like <code>nats://nats.example.com</cod
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1>// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.
 </span></span></span><span class=line><span class=cl><span class=c1>// This URL will Dial the NATS server at the URL in the environment variable
-</span></span></span><span class=line><span class=cl><span class=c1>// NATS_SERVER_URL and receive messages with subject &#34;example.mysubject&#34;.
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>pubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=s>&#34;nats://example.mysubject&#34;</span><span class=p>)</span>
+</span></span></span><span class=line><span class=cl><span class=c1>// NATS_SERVER_URL and receive messages with subject &#34;example.my-subject&#34;.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>pubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=s>&#34;nats://example.my-subject&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
@@ -151,7 +151,7 @@ topic. You must first create an <a href=https://godoc.org/github.com/nats-io/go-
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>natspubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span>
 </span></span><span class=line><span class=cl>	<span class=nx>natsConn</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;example.mysubject&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;example.my-subject&#34;</span><span class=p>,</span>
 </span></span><span class=line><span class=cl>	<span class=kc>nil</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
@@ -243,5 +243,89 @@ redelivered.</p><div class=highlight><pre tabindex=0 class=chroma><code class=la
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1>// Construct a *pubsub.Subscription for the topic.
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>subscription</span> <span class=o>:=</span> <span class=nx>mempubsub</span><span class=p>.</span><span class=nf>NewSubscription</span><span class=p>(</span><span class=nx>topic</span><span class=p>,</span> <span class=mi>1</span><span class=o>*</span><span class=nx>time</span><span class=p>.</span><span class=nx>Minute</span> <span class=cm>/* ack deadline */</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>subscription</span><span class=p>.</span><span class=nf>Shutdown</span><span class=p>(</span><span class=nx>ctx</span><span class=p>)</span>
+</span></span></code></pre></div><h3 id=redis>Redis<a class=anchor href=#redis aria-label="Link to Section">🔗</a></h3><p>The GDK can publish to a <a href=https://redis.io/>Redis</a> subject. A Redis URL only includes the
+subject name. The Redis server is discovered from the <code>REDIS_SERVER_URL</code>
+environment variable (which is something like <code>redis://redis.example.com</code>).</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/pubsub&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span> <span class=s>&#34;github.com/sraphs/gdk/pubsub/redispubsub&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.
+</span></span></span><span class=line><span class=cl><span class=c1>// This URL will Dial the Redis server at the URL in the environment variable
+</span></span></span><span class=line><span class=cl><span class=c1>// REDIS_SERVER_URL and receive messages with subject &#34;example.my-topic&#34;.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>pubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=s>&#34;redis://example.my-topic&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>subscription</span><span class=p>.</span><span class=nf>Shutdown</span><span class=p>(</span><span class=nx>ctx</span><span class=p>)</span>
+</span></span></code></pre></div><p>Because Redis does not natively support metadata, messages sent to Redis will
+be encoded with <a href=https://golang.org/pkg/encoding/gob/>gob</a>.</p><h4 id=redis-ctor>Redis Constructor<a class=anchor href=#redis-ctor aria-label="Link to Section">🔗</a></h4><p>The <a href=https://godoc.org/github.com/sraphs/gdk/pubsub/redispubsub#OpenSubscription><code>redispubsub.OpenSubscription</code></a> constructor opens a Redis subject as a topic. You
+must first create an <a href=https://godoc.org/github.com/go-redis/redis/v8#Client><code>*redis.Client</code></a> to your Redis instance.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/go-redis/redis/v8&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/pubsub/redispubsub&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>opt</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>redis</span><span class=p>.</span><span class=nf>ParseURL</span><span class=p>(</span><span class=s>&#34;redis://localhost:6379&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>client</span> <span class=o>:=</span> <span class=nx>redis</span><span class=p>.</span><span class=nf>NewClient</span><span class=p>(</span><span class=nx>opt</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>client</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>redispubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>client</span><span class=p>,</span> <span class=s>&#34;example.my-topic&#34;</span><span class=p>,</span> <span class=kc>nil</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>subscription</span><span class=p>.</span><span class=nf>Shutdown</span><span class=p>(</span><span class=nx>ctx</span><span class=p>)</span>
+</span></span></code></pre></div><h3 id=pulsar>Pulsar<a class=anchor href=#pulsar aria-label="Link to Section">🔗</a></h3><p>The GDK can publish to a <a href=https://pulsar.apache.org/>Pulsar</a> subject. A Pulsar URL only includes the
+subject name. The Pulsar server is discovered from the <code>Pulsar_SERVER_URL</code>
+environment variable (which is something like <code>pulsar://localhost:6650</code>).</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/pubsub&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span> <span class=s>&#34;github.com/sraphs/gdk/pubsub/pulsarpubsub&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.
+</span></span></span><span class=line><span class=cl><span class=c1>// The host + path are used as the consumer group name.
+</span></span></span><span class=line><span class=cl><span class=c1>// The &#34;topic&#34; query parameter sets one or more topics to subscribe to.
+</span></span></span><span class=line><span class=cl><span class=c1>// The set of brokers must be in an environment variable KAFKA_BROKERS.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>pubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;pulsar://my-sub?topic=my-topic&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>subscription</span><span class=p>.</span><span class=nf>Shutdown</span><span class=p>(</span><span class=nx>ctx</span><span class=p>)</span>
+</span></span></code></pre></div><h4 id=pulsar-ctor>Pulsar Constructor<a class=anchor href=#pulsar-ctor aria-label="Link to Section">🔗</a></h4><p>The <a href=https://godoc.org/github.com/sraphs/gdk/pubsub/pulsarpubsub#OpenSubscription><code>pulsarpubsub.OpenSubscription</code></a> constructor opens a Pulsar topic to publish
+messages to.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/apache/pulsar-client-go/pulsar&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/sraphs/gdk/pubsub/pulsarpubsub&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>localPulsarURL</span> <span class=o>:=</span> <span class=s>&#34;pulsar://localhost:6650&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>config</span> <span class=o>:=</span> <span class=nx>pulsarpubsub</span><span class=p>.</span><span class=nf>MinimalConfig</span><span class=p>(</span><span class=nx>localPulsarURL</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>client</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>pulsar</span><span class=p>.</span><span class=nf>NewClient</span><span class=p>(</span><span class=nx>config</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// Construct a *pubsub.Subscription, use the SubscriptionName &#34;my-sub&#34;
+</span></span></span><span class=line><span class=cl><span class=c1>// and receiving messages from &#34;my-topic&#34;.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>pulsarpubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>client</span><span class=p>,</span> <span class=o>&amp;</span><span class=nx>pulsarpubsub</span><span class=p>.</span><span class=nx>SubscriptionOptions</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>ConsumerOptions</span><span class=p>:</span> <span class=nx>pulsar</span><span class=p>.</span><span class=nx>ConsumerOptions</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Topic</span><span class=p>:</span>            <span class=s>&#34;my-topic&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>SubscriptionName</span><span class=p>:</span> <span class=s>&#34;my-sub&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=p>},</span>
+</span></span><span class=line><span class=cl>	<span class=nx>KeyName</span><span class=p>:</span> <span class=s>&#34;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>subscription</span><span class=p>.</span><span class=nf>Shutdown</span><span class=p>(</span><span class=nx>ctx</span><span class=p>)</span>
 </span></span></code></pre></div></div></main><nav class=Sidenav><ul class=Sidenav-list><li class=Sidenav-section><a href=../../../ class=Sidenav-sectionLink>Home</a></li><li class=Sidenav-section><a href=../../../howto/ class=Sidenav-sectionLink>How-To Guides</a><ul class=Sidenav-pageList><li class=Sidenav-page><a href=../../../howto/blob/ class=Sidenav-pageLink>Blob</a></li><li class=Sidenav-page><a href=../../../howto/pubsub/ class=Sidenav-pageLink>Pub/Sub</a></li><li class=Sidenav-page><a href=../../../howto/runtimevar/ class=Sidenav-pageLink>Runtime Configuration</a></li><li class=Sidenav-page><a href=../../../howto/secrets/ class=Sidenav-pageLink>Secrets</a></li></ul></li><li class=Sidenav-section><a href=../../../concepts/ class=Sidenav-sectionLink>Concepts</a><ul class=Sidenav-pageList><li class=Sidenav-page><a href=../../../concepts/structure/ class=Sidenav-pageLink>Structuring Portable Code</a></li><li class=Sidenav-page><a href=../../../concepts/urls/ class=Sidenav-pageLink>URLs</a></li><li class=Sidenav-page><a href=../../../concepts/as/ class=Sidenav-pageLink>Using provider-specific APIs</a></li></ul></li></ul></nav><footer class=PageFooter><nav><ul class=FooterLinks><li class=FooterLinks-item><a href=https://github.com/sraphs/gdk/ class=FooterLinks-link>GitHub</a></li><li class=FooterLinks-item><a href=https://github.com/sraphs/gdk/issues class=FooterLinks-link>Contact Team</a></li></ul></nav><p class=PageFooter-paragraph>Copyright © 2022-2022 The Go Development Kit Authors.</p><p class=PageFooter-paragraph>All content released under an <a href=https://github.com/sraphs/gdk/blob/main/LICENSE target=_blank class=PageFooter-link>MIT License</a>.</p></footer></div></body></html>
