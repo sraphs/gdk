@@ -3,12 +3,7 @@ your application&amp;rsquo;s core logic from the details of the services it is u
 &lt;ol>
 &lt;li>&lt;a href="#opening">Open a topic&lt;/a> with the Pub/Sub provider of your choice (once per topic).&lt;/li>
 &lt;li>&lt;a href="#sending">Send messages&lt;/a> on the topic.&lt;/li>
-&lt;/ol></description></item><item><title>Tutorial: Command-Line Uploader</title><link>/tutorials/cli-uploader/</link><pubDate>Tue, 19 Mar 2019 18:45:53 -0700</pubDate><guid>/tutorials/cli-uploader/</guid><description>&lt;p>This quickstart will build a command line application called &lt;code>upload&lt;/code> that
-uploads files to blob storage on GCP, AWS, and Azure. Blob storage stores binary
-data under a string key, and is one of the most frequently used cloud
-services.&lt;/p></description></item><item><title>Tutorial: Guestbook Application</title><link>/tutorials/guestbook/</link><pubDate>Wed, 10 Jul 2019 16:58:00 -0700</pubDate><guid>/tutorials/guestbook/</guid><description>&lt;p>In this tutorial, we will deploy an existing Go CDK application called Guestbook
-locally, then on Google Cloud Platform (GCP), Amazon Web Services (AWS), and
-Azure.&lt;/p></description></item><item><title>URLs</title><link>/concepts/urls/</link><pubDate>Mon, 06 May 2019 09:55:09 -0700</pubDate><guid>/concepts/urls/</guid><description>&lt;p>In addition to creating portable types via provider-specific constructors
+&lt;/ol></description></item><item><title>URLs</title><link>/concepts/urls/</link><pubDate>Mon, 06 May 2019 09:55:09 -0700</pubDate><guid>/concepts/urls/</guid><description>&lt;p>In addition to creating portable types via provider-specific constructors
 (e.g., creating a &lt;code>*blob.Bucket&lt;/code> using &lt;a href="https://godoc.org/github.com/sraphs/gdk/blob/s3blob#OpenBucket">&lt;code>s3blob.OpenBucket&lt;/code>&lt;/a>), many portable types
 can also be created using a URL. The scheme of the URL specifies the provider,
 and each provider implementation has code to convert the URL into the data
@@ -26,5 +21,4 @@ full functionality of every provider. Rather, we intend to provide a subset
 of the most commonly used functionality. There will be cases where a
 developer wants to access provider-specific functionality, such as unexposed
 APIs or data fields, errors, or options. This can be accomplished using &lt;code>As&lt;/code>
-functions.&lt;/p></description></item><item><title>Order Processor</title><link>/tutorials/order/</link><pubDate>Tue, 09 Jul 2019 10:22:39 -0400</pubDate><guid>/tutorials/order/</guid><description>&lt;p>In this tutorial, we will run a Go CDK application called Order Processor
-on a local machine.&lt;/p></description></item></channel></rss>
+functions.&lt;/p></description></item></channel></rss>
