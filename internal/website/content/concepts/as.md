@@ -15,10 +15,10 @@ functions.
 
 ## `As` {#as}
 
-`As` functions in the APIs provide the user a way to escape the Go CDK
+`As` functions in the APIs provide the user a way to escape the GDK
 abstraction to access provider-specific types. They might be used as an
-interim solution until a feature request to the Go CDK is implemented. Or,
-the Go CDK may choose not to support specific features, and the use of `As`
+interim solution until a feature request to the GDK is implemented. Or,
+the GDK may choose not to support specific features, and the use of `As`
 will be permanent.
 
 Using `As` implies that the resulting code is no longer portable; the

@@ -8,7 +8,7 @@ toc: true
 
 Blobs are a common abstraction for storing unstructured data on Cloud storage
 services and accessing them via HTTP. This guide shows how to work with
-blobs in the Go CDK.
+blobs in the GDK.
 
 <!--more-->
 
@@ -163,7 +163,7 @@ You can delete blobs using the `Bucket.Delete` method.
 
 ### S3 {#s3}
 
-S3 URLs in the Go CDK closely resemble the URLs you would see in the [AWS CLI][].
+S3 URLs in the GDK closely resemble the URLs you would see in the [AWS CLI][].
 You should specify the `region` query parameter to ensure your application
 connects to the correct region.
 
@@ -176,7 +176,7 @@ alternatives, including using environment variables.
 If you set the "awssdk=v2" query parameter, it will instead create an AWS
 Config based on the AWS SDK V2; see [AWS V2 Config][] to learn more.
 
-If no "awssdk" query parameter is set, Go CDK will use a default (currently V1).
+If no "awssdk" query parameter is set, GDK will use a default (currently V1).
 
 Full details about acceptable URLs can be found under the API reference for
 [`s3blob.URLOpener`][].
@@ -199,7 +199,7 @@ The [`s3blob.OpenBucket`][] constructor opens an [S3][] bucket:
 
 #### S3-Compatible Servers {#s3-compatible}
 
-The Go CDK can also interact with [S3-compatible storage servers][] that
+The GDK can also interact with [S3-compatible storage servers][] that
 recognize the same REST HTTP endpoints as S3, like [Minio][], [Ceph][], or
 [SeaweedFS][]. You can change the endpoint by changing the [`Endpoint` field][]
 on the `*aws.Config` you pass to `s3blob.OpenBucket`. If you are using
@@ -224,7 +224,7 @@ See [`aws.ConfigFromURLParams`][] for more details on supported URL options for 
 
 ### Local Storage {#local}
 
-The Go CDK provides blob drivers for storing data in memory and on the local
+The GDK provides blob drivers for storing data in memory and on the local
 filesystem. These are primarily intended for testing and local development,
 but may be useful in production scenarios where an NFS mount is used.
 

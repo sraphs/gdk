@@ -7,4 +7,4 @@ weight: 2
 ---
 
 The guides in this section are aimed to help you solve common tasks with
-the Go CDK. They are grouped by API.
+the GDK. They are grouped by API.

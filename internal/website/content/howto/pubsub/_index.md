@@ -6,7 +6,7 @@ showInSidenav: true
 
 The [`pubsub` package][] provides an easy and portable way to interact with
 publish/subscribe systems. This guide shows how to work with pubsub
-in the Go CDK.
+in the GDK.
 
 <!--more-->
 

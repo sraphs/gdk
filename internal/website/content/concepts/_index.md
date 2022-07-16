@@ -6,4 +6,4 @@ pagesInSidenav: true
 weight: 4
 ---
 
-The documents in this section describe higher level concepts in the Go CDK.
+The documents in this section describe higher level concepts in the GDK.

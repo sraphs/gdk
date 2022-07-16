@@ -8,7 +8,7 @@ toc: true
 
 The [`runtimevar` package][] provides an easy and portable way to watch runtime
 configuration variables. This guide shows how to work with runtime configuration
-variables using the Go CDK.
+variables using the GDK.
 
 <!--more-->
 
@@ -123,7 +123,7 @@ recommend starting with `Latest` as it's conceptually simpler to work with.
 *NOTE*: Support for `etcd` has been temporarily dropped due to dependency
 issues. See https://github.com/sraphs/gdk/issues/2914.
 
-You can use `runtimevar.etcd` in Go CDK version `v0.20.0` or earlier.
+You can use `runtimevar.etcd` in GDK version `v0.20.0` or earlier.
 
 ### HTTP {#http}
 
@@ -146,13 +146,13 @@ and a URL.
 ### Blob {#blob}
 
 `blobvar` supports watching a variable based on the contents of a
-[Go CDK blob][]. Set the environment variable `BLOBVAR_BUCKET_URL` to the URL
+[GDK blob][]. Set the environment variable `BLOBVAR_BUCKET_URL` to the URL
 of the bucket, and then use `runtimevar.OpenVariable` as shown below.
 `blobvar` will periodically re-fetch the contents of the blob.
 
 {{< goexample "github.com/sraphs/gdk/runtimevar/blobvar.Example_openVariableFromURL" >}}
 
-[Go CDK blob]: https://github.com/sraphs/gdk/howto/blob/
+[GDK blob]: https://github.com/sraphs/gdk/howto/blob/
 
 You can also use [`blobvar.OpenVariable`][].
 

@@ -6,7 +6,7 @@ weight: 2
 toc: true
 ---
 
-Subscribing to receive message from a topic with the Go CDK takes three steps:
+Subscribing to receive message from a topic with the GDK takes three steps:
 
 1. [Open a subscription][] to a topic with the Pub/Sub service of your choice (once per
    subscription).
@@ -100,7 +100,7 @@ Note that the [semantics of message delivery][] can vary by backing service.
 
 ### RabbitMQ {#rabbitmq}
 
-The Go CDK can receive messages from an [AMQP 0.9.1][] queue, the dialect of
+The GDK can receive messages from an [AMQP 0.9.1][] queue, the dialect of
 AMQP spoken by [RabbitMQ][]. A RabbitMQ URL only includes the queue name.
 The RabbitMQ's server is discovered from the `RABBIT_SERVER_URL` environment
 variable (which is something like `amqp://guest:guest@localhost:5672/`).
@@ -122,7 +122,7 @@ You must first create an [`*amqp.Connection`][] to your RabbitMQ instance.
 
 ### NATS {#nats}
 
-The Go CDK can publish to a [NATS][] subject. A NATS URL only includes the
+The GDK can publish to a [NATS][] subject. A NATS URL only includes the
 subject name. The NATS server is discovered from the `NATS_SERVER_URL`
 environment variable (which is something like `nats://nats.example.com`).
 
@@ -131,10 +131,10 @@ environment variable (which is something like `nats://nats.example.com`).
 NATS guarantees at-most-once delivery; it will never redeliver a message.
 Therefore, `Message.Ack` is a no-op.
 
-To parse messages [published via the Go CDK][publish#nats], the NATS driver
+To parse messages [published via the GDK][publish#nats], the NATS driver
 will first attempt to decode the payload using [gob][]. Failing that, it will
 return the message payload as the `Data` with no metadata to accomodate
-subscribing to messages coming from a source not using the Go CDK.
+subscribing to messages coming from a source not using the GDK.
 
 [gob]: https://golang.org/pkg/encoding/gob/
 [NATS]: https://nats.io/
@@ -152,7 +152,7 @@ topic. You must first create an [`*nats.Conn`][] to your NATS instance.
 
 ### Kafka {#kafka}
 
-The Go CDK can receive messages from a [Kafka][] cluster.
+The GDK can receive messages from a [Kafka][] cluster.
 A Kafka URL includes the consumer group name, plus at least one instance
 of a query parameter specifying the topic to subscribe to.
 The brokers in the Kafka cluster are discovered from the
@@ -181,7 +181,7 @@ get you started.
 
 ### In-Memory {#mem}
 
-The Go CDK includes an in-memory Pub/Sub provider useful for local testing.
+The GDK includes an in-memory Pub/Sub provider useful for local testing.
 The names in `mem://` URLs are a process-wide namespace, so subscriptions to
 the same name will receive messages posted to that topic. For instance, if
 you open a topic `mem://topicA` and open two subscriptions with

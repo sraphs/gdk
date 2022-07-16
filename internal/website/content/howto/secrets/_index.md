@@ -7,7 +7,7 @@ toc: true
 ---
 
 The [`secrets` package][] provides access to key management services in a
-portable way. This guide shows how to work with secrets in the Go CDK.
+portable way. This guide shows how to work with secrets in the GDK.
 
 <!--more-->
 
@@ -159,7 +159,7 @@ runtime configuration.
 
 ### HashiCorp Vault {#vault}
 
-The Go CDK can use the [transit secrets engine][] in [Vault][] to keep
+The GDK can use the [transit secrets engine][] in [Vault][] to keep
 information secret. Vault URLs only specify the key ID. The Vault server
 endpoint and authentication token are specified using the environment
 variables `VAULT_SERVER_URL` and `VAULT_SERVER_TOKEN`, respectively.
@@ -180,7 +180,7 @@ key. You must first connect to your Vault instance.
 
 ### Local Secrets {#local}
 
-The Go CDK can use local encryption for keeping secrets. Internally, it uses
+The GDK can use local encryption for keeping secrets. Internally, it uses
 the [NaCl secret box][] algorithm to perform encryption and authentication.
 
 {{< goexample "github.com/sraphs/gdk/secrets/localsecrets.Example_openFromURL" >}}

@@ -4,31 +4,30 @@ date: 2019-06-03T07:34:22-07:00
 weight: 1
 ---
 
-The Go CDK's APIs are intentionally structured to make it easier to separate
+The GDK's APIs are intentionally structured to make it easier to separate
 your application's core logic from the details of the services it is using.
 
 <!--more-->
 
 ## Motivation
 
-Consider the [uploader tutorial][]. Without the Go CDK, we would have had to
-write a code path for Amazon's Simple Storage Service (S3) and another code
-path for Google Cloud Storage (GCS). That would work, but it would be
+Consider the [uploader tutorial][]. Without the GDK, we would have had to
+write a code path for Amazon's Simple Storage Service (S3). That would work, but it would be
 tedious. We would have to learn the semantics of uploading files to both blob
 storage services. Even worse, we would have two code paths that effectively
 do the same thing, but would have to be maintained separately. It would be
 much nicer if we could write the upload logic once and reuse it across
-providers. That's exactly the kind of [separation of concerns][] that the Go
-CDK makes possible.
+providers. That's exactly the kind of [separation of concerns][] that the GDK
+ makes possible.
 
-(More details available in the [Go CDK design doc][Developers and Operators].)
+(More details available in the [GDK design doc][Developers and Operators].)
 
-[Developers and Operators]: https://github.com/sraphs/gdk/blob/master/internal/docs/design.md#developers-and-operators
+[Developers and Operators]: https://github.com/sraphs/gdk/blob/main/internal/docs/design.md#developers-and-operators
 [separation of concerns]: https://en.wikipedia.org/wiki/Separation_of_concerns
 
 ## Portable Types and Drivers
 
-The portable APIs that the Go CDK exports (like [`blob.Bucket`][] or
+The portable APIs that the GDK exports (like [`blob.Bucket`][] or
 [`runtimevar.Variable`][]) are concrete types, not interfaces. To understand
 why, imagine if we used a plain interface:
 
@@ -60,7 +59,7 @@ This has a number of benefits:
 -   When new operations on the driver are added as new optional interfaces, the
     portable type can hide the need for type-assertions from the user.
 
-(More details available in the [Go CDK design doc][Portable Types and Drivers].)
+(More details available in the [GDK design doc][Portable Types and Drivers].)
 
 [Portable Types and Drivers]: https://github.com/sraphs/gdk/blob/master/internal/docs/design.md#portable-types-and-drivers
 [`blob.Bucket`]: https://godoc.org/github.com/sraphs/gdk/blob#Bucket

@@ -1,5 +1,5 @@
 // Command gatherexamples extracts examples in a Go module into a JSON-formatted
-// object. This is used as input for building the Go CDK Hugo website.
+// object. This is used as input for building the GDK Hugo website.
 //
 // Examples must include a comment
 // "// PRAGMA: This example is used on github.com/sraphs/gdk; PRAGMA comments adjust how it is shown and can be ignored."

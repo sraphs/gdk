@@ -69,14 +69,14 @@ func NewRecordReplayClient(ctx context.Context, t *testing.T, rf func(r *httprep
 	return rep.Client(), func() { rep.Close() }, recState.UnixNano()
 }
 
-// NewAWSv2Config creates a new aws.Config for testing against AWS.
+// NewAWSConfig creates a new aws.Config for testing against AWS.
 // If the test is in --record mode, the test will call out to AWS, and the
 // results are recorded in a replay file.
 // Otherwise, the session reads a replay file and runs the test as a replay,
 // which never makes an outgoing HTTP call and uses fake credentials.
 // An initState is returned for tests that need a state to have deterministic
 // results, for example, a seed to generate random sequences.
-func NewAWSv2Config(ctx context.Context, t *testing.T, region string) (cfg awsv2.Config, rt http.RoundTripper, cleanup func(), initState int64) {
+func NewAWSConfig(ctx context.Context, t *testing.T, region string) (cfg awsv2.Config, rt http.RoundTripper, cleanup func(), initState int64) {
 	client, cleanup, state := NewRecordReplayClient(ctx, t, func(r *httpreplay.Recorder) {
 		r.RemoveQueryParams("X-Amz-Credential", "X-Amz-Signature", "X-Amz-Security-Token")
 		r.RemoveRequestHeaders("Authorization", "Duration", "X-Amz-Security-Token")
@@ -85,14 +85,14 @@ func NewAWSv2Config(ctx context.Context, t *testing.T, region string) (cfg awsv2
 		r.ClearQueryParams("X-Amz-Date")
 		r.ClearHeaders("User-Agent") // AWS includes the Go version
 	})
-	cfg, err := awsV2Config(ctx, region, client)
+	cfg, err := awsConfig(ctx, region, client)
 	if err != nil {
 		t.Fatal(err)
 	}
 	return cfg, client.Transport, cleanup, state
 }
 
-func awsV2Config(ctx context.Context, region string, client *http.Client) (awsv2.Config, error) {
+func awsConfig(ctx context.Context, region string, client *http.Client) (awsv2.Config, error) {
 	// Provide fake creds if running in replay mode.
 	var creds awsv2.CredentialsProvider
 	if !*Record {

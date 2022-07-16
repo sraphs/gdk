@@ -6,7 +6,7 @@ weight: 1
 toc: true
 ---
 
-Publishing a message to a topic with the Go CDK takes two steps:
+Publishing a message to a topic with the GDK takes two steps:
 
 1. [Open a topic][] with the Pub/Sub provider of your choice (once per topic).
 2. [Send messages][] on the topic.
@@ -91,7 +91,7 @@ Note that the [semantics of message delivery][] can vary by backing service.
 
 ### RabbitMQ {#rabbitmq}
 
-The Go CDK can publish to an [AMQP 0.9.1][] fanout exchange, the dialect of
+The GDK can publish to an [AMQP 0.9.1][] fanout exchange, the dialect of
 AMQP spoken by [RabbitMQ][]. A RabbitMQ URL only includes the exchange name.
 The RabbitMQ's server is discovered from the `RABBIT_SERVER_URL` environment
 variable (which is something like `amqp://guest:guest@localhost:5672/`).
@@ -113,7 +113,7 @@ must first create an [`*amqp.Connection`][] to your RabbitMQ instance.
 
 ### NATS {#nats}
 
-The Go CDK can publish to a [NATS][] subject. A NATS URL only includes the
+The GDK can publish to a [NATS][] subject. A NATS URL only includes the
 subject name. The NATS server is discovered from the `NATS_SERVER_URL`
 environment variable (which is something like `nats://nats.example.com`).
 
@@ -137,7 +137,7 @@ must first create an [`*nats.Conn`][] to your NATS instance.
 
 ### Kafka {#kafka}
 
-The Go CDK can publish to a [Kafka][] cluster. A Kafka URL only includes the
+The GDK can publish to a [Kafka][] cluster. A Kafka URL only includes the
 topic name. The brokers in the Kafka cluster are discovered from the
 `KAFKA_BROKERS` environment variable (which is a comma-delimited list of
 hosts, something like `1.2.3.4:9092,5.6.7.8:9092`).
@@ -165,7 +165,7 @@ you started.
 
 ### In-Memory {#mem}
 
-The Go CDK includes an in-memory Pub/Sub provider useful for local testing.
+The GDK includes an in-memory Pub/Sub provider useful for local testing.
 The names in `mem://` URLs are a process-wide namespace, so subscriptions to
 the same name will receive messages posted to that topic. This is detailed
 more in the [subscription guide][subscribe-mem].
