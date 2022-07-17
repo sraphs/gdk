@@ -6,7 +6,6 @@ require (
 	cloud.google.com/go/pubsub v1.23.1
 	cloud.google.com/go/storage v1.23.0
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.4+incompatible
-	github.com/aws/aws-sdk-go v1.44.55
 	github.com/aws/aws-sdk-go-v2 v1.16.7
 	github.com/aws/aws-sdk-go-v2/config v1.15.14
 	github.com/aws/aws-sdk-go-v2/credentials v1.12.9
@@ -24,7 +23,7 @@ require (
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f
 	golang.org/x/xerrors v0.0.0-20220609144429-65e65417b02f
 	google.golang.org/api v0.87.0
-	google.golang.org/genproto v0.0.0-20220714211235-042d03aeabc9
+	google.golang.org/genproto v0.0.0-20220715211116-798f69b842b9
 	google.golang.org/grpc v1.48.0
 )
 

@@ -9,7 +9,8 @@ import (
 	"os"
 
 	"cloud.google.com/go/storage"
-	"github.com/aws/aws-sdk-go/aws/awserr"
+
+	"github.com/aws/smithy-go"
 
 	"github.com/sraphs/gdk/blob"
 	"github.com/sraphs/gdk/blob/fileblob"
@@ -162,11 +163,14 @@ func ExampleBucket_ErrorAs() {
 
 	_, err = b.ReadAll(ctx, "nosuchfile")
 	if err != nil {
-		var awsErr awserr.Error
+		var awsErr *smithy.OperationError
 		if b.ErrorAs(err, &awsErr) {
-			fmt.Println(awsErr.Code())
+			fmt.Println(awsErr.Operation())
 		}
 	}
+
+	// Output:
+	// GetObject
 }
 
 func ExampleBucket_List() {

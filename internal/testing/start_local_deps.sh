@@ -9,7 +9,9 @@
 set -euo pipefail
 
 ./pubsub/kafkapubsub/localkafka.sh
+./pubsub/pulsarpubsub/localpulsar.sh
 ./pubsub/rabbitpubsub/localrabbit.sh
+./pubsub/redispubsub/localredis.sh
 ./runtimevar/etcdvar/localetcd.sh
 ./secrets/hashivault/localvault.sh
 
