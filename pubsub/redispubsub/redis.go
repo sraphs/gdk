@@ -101,11 +101,18 @@ func (o *URLOpener) OpenTopicURL(ctx context.Context, u *url.URL) (*pubsub.Topic
 // OpenSubscriptionURL opens a pubsub.Subscription based on u.
 func (o *URLOpener) OpenSubscriptionURL(ctx context.Context, u *url.URL) (*pubsub.Subscription, error) {
 	opts := o.SubscriptionOptions
-	for param := range u.Query() {
-		return nil, fmt.Errorf("open subscription %v: invalid query parameter %s", u, param)
+	var channels []string
+	for param, value := range u.Query() {
+		switch param {
+		case "topic":
+			channels = value
+		default:
+			return nil, fmt.Errorf("open subscription %v: invalid query parameter %s", u, param)
+		}
+
 	}
-	channel := path.Join(u.Host, u.Path)
-	return OpenSubscription(o.Client, channel, &opts)
+	nodeID := path.Join(u.Host, u.Path)
+	return OpenSubscription(o.Client, nodeID, channels, &opts)
 }
 
 // TopicOptions sets options for constructing a *pubsub.Topic backed by Redis.
@@ -217,33 +224,35 @@ func (*topic) IsRetryable(err error) bool {
 var _ driver.Subscription = (*subscription)(nil)
 
 type subscription struct {
-	channel string
-	sub     *redis.PubSub
-	ch      <-chan *redis.Message
-	done    chan struct{}
-	nextID  int
+	nodeID   string
+	channels []string
+	sub      *redis.PubSub
+	ch       <-chan *redis.Message
+	done     chan struct{}
+	nextID   int
 }
 
 // OpenSubscription returns a *pubsub.Subscription representing a Redis Subscribe.
 // The channel is the Redis Channel to subscribe to;
 // for more info, see https://redis.io/commands/pubsub-channels/.
-func OpenSubscription(rc *redis.Client, channel string, opts *SubscriptionOptions) (*pubsub.Subscription, error) {
-	ds, err := openSubscription(rc, channel, opts)
+func OpenSubscription(rc *redis.Client, nodeID string, channels []string, opts *SubscriptionOptions) (*pubsub.Subscription, error) {
+	ds, err := openSubscription(rc, nodeID, channels, opts)
 	if err != nil {
 		return nil, err
 	}
 	return pubsub.NewSubscription(ds, nil, nil), nil
 }
 
-func openSubscription(rc *redis.Client, channel string, opts *SubscriptionOptions) (driver.Subscription, error) {
-	sub := rc.Subscribe(redisCtx, channel)
+func openSubscription(rc *redis.Client, nodeID string, channels []string, opts *SubscriptionOptions) (driver.Subscription, error) {
+	sub := rc.Subscribe(redisCtx, channels...)
 
 	ps := &subscription{
-		channel: channel,
-		sub:     sub,
-		ch:      sub.Channel(),
-		done:    make(chan struct{}, 1),
-		nextID:  1,
+		nodeID:   nodeID,
+		channels: channels,
+		sub:      sub,
+		ch:       sub.Channel(),
+		done:     make(chan struct{}, 1),
+		nextID:   1,
 	}
 
 	// ensure that channel is initial synced
@@ -330,7 +339,7 @@ func (s *subscription) Close() error {
 		return nil
 	}
 
-	s.sub.Unsubscribe(redisCtx, s.channel)
+	s.sub.Unsubscribe(redisCtx, s.channels...)
 	s.done <- struct{}{}
 	return nil
 }

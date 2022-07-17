@@ -41,7 +41,7 @@ func ExampleOpenSubscription() {
 	client := redis.NewClient(opt)
 	defer client.Close()
 
-	subscription, err := redispubsub.OpenSubscription(client, "example.my-topic", nil)
+	subscription, err := redispubsub.OpenSubscription(client, "node-1", []string{"example.my-topic"}, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -72,8 +72,8 @@ func Example_openSubscriptionFromURL() {
 
 	// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.
 	// This URL will Dial the Redis server at the URL in the environment variable
-	// REDIS_SERVER_URL and receive messages with subject "example.my-topic".
-	subscription, err := pubsub.OpenSubscription(ctx, "redis://example.my-topic")
+	// REDIS_SERVER_URL and receive messages with nodeID "node-1" and subject "example.my-topic".
+	subscription, err := pubsub.OpenSubscription(ctx, "redis://node-1?topic=my-topic")
 	if err != nil {
 		log.Fatal(err)
 	}

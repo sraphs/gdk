@@ -51,7 +51,7 @@ func (h *harness) MakeNonexistentTopic(ctx context.Context) (driver.Topic, error
 }
 
 func (h *harness) CreateSubscription(ctx context.Context, dt driver.Topic, testName string) (driver.Subscription, func(), error) {
-	ds, err := openSubscription(h.rc, testName, nil)
+	ds, err := openSubscription(h.rc, "node-1", []string{testName}, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -181,7 +181,7 @@ func TestInteropWithDirectRedis(t *testing.T) {
 	sub.Unsubscribe(ctx, topic)
 
 	// Send a message using Redis directly and receive it using GDK.
-	ps, err := OpenSubscription(client, topic, nil)
+	ps, err := OpenSubscription(client, "node-1", []string{topic}, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -225,7 +225,7 @@ func TestErrorCode(t *testing.T) {
 	}
 
 	// Subscriptions
-	ds, err := openSubscription(h.rc, "bar", nil)
+	ds, err := openSubscription(h.rc, "node-id", []string{"bar"}, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -328,9 +328,11 @@ func TestOpenSubscriptionFromURL(t *testing.T) {
 		WantErr bool
 	}{
 		// OK.
-		{"redis://my-topic", false},
+		{"redis://node-id", false},
+		// With topics.
+		{"redis://node-id?topic=foo&topic=bar", false},
 		// Invalid parameter.
-		{"redis://my-topic?param=value", true},
+		{"redis://node-id?param=value", true},
 	}
 
 	for _, test := range tests {
