@@ -255,8 +255,8 @@ environment variable (which is something like <code>redis://redis.example.com</c
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1>// pubsub.OpenSubscription creates a *pubsub.Subscription from a URL.
 </span></span></span><span class=line><span class=cl><span class=c1>// This URL will Dial the Redis server at the URL in the environment variable
-</span></span></span><span class=line><span class=cl><span class=c1>// REDIS_SERVER_URL and receive messages with subject &#34;example.my-topic&#34;.
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>pubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=s>&#34;redis://example.my-topic&#34;</span><span class=p>)</span>
+</span></span></span><span class=line><span class=cl><span class=c1>// REDIS_SERVER_URL and receive messages with nodeID &#34;node-1&#34; and subject &#34;example.my-topic&#34;.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>pubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=s>&#34;redis://node-1?topic=my-topic&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
@@ -277,7 +277,7 @@ must first create an <a href=https://godoc.org/github.com/go-redis/redis/v8#Clie
 </span></span><span class=line><span class=cl><span class=nx>client</span> <span class=o>:=</span> <span class=nx>redis</span><span class=p>.</span><span class=nf>NewClient</span><span class=p>(</span><span class=nx>opt</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>client</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>redispubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>client</span><span class=p>,</span> <span class=s>&#34;example.my-topic&#34;</span><span class=p>,</span> <span class=kc>nil</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>subscription</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>redispubsub</span><span class=p>.</span><span class=nf>OpenSubscription</span><span class=p>(</span><span class=nx>client</span><span class=p>,</span> <span class=s>&#34;node-1&#34;</span><span class=p>,</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;example.my-topic&#34;</span><span class=p>},</span> <span class=kc>nil</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
