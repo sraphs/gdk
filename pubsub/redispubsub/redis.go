@@ -244,7 +244,7 @@ func OpenSubscription(rc *redis.Client, nodeID string, channels []string, opts *
 }
 
 func openSubscription(rc *redis.Client, nodeID string, channels []string, opts *SubscriptionOptions) (driver.Subscription, error) {
-	sub := rc.Subscribe(redisCtx, channels...)
+	sub := rc.PSubscribe(redisCtx, channels...)
 
 	ps := &subscription{
 		nodeID:   nodeID,
@@ -302,6 +302,10 @@ func decode(msg *redis.Message) (*driver.Message, error) {
 	var dm driver.Message
 	if err := decodeMessage([]byte(msg.Payload), &dm); err != nil {
 		return nil, err
+	}
+	dm.Metadata = map[string]string{
+		"channel": msg.Channel,
+		"pattern": msg.Pattern,
 	}
 	dm.AckID = -1 // Not applicable to Redis
 	dm.AsFunc = messageAsFunc(msg)
